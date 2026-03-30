@@ -1,0 +1,72 @@
+[
+  {
+    "prompt": "The capital of France is",
+    "full_text": "The capital of France is Paris. It is the largest city in France. Paris is also one of the most beautiful cities in the world. The city is famous for its art",
+    "sparse_text": "The capital of France is Paris. It is the largest city in France. Paris is also one of the most beautiful cities in the world. The city is famous for its art",
+    "token_match_rate": 1.0,
+    "exact_text_match": true,
+    "compression": 0.03069384954150578,
+    "sparsity": 0.2321582718813877,
+    "max_logit_diff": 0.4765625,
+    "mean_logit_diff": 0.042877197265625,
+    "same_next_token": true,
+    "top5_overlap": 5,
+    "cosine_similarity": 0.9999818205833435
+  },
+  {
+    "prompt": "Explain the theory of general relativity in simple terms:",
+    "full_text": "Explain the theory of general relativity in simple terms: The theory of general relativity is a theory of gravity developed by Albert Einstein. It describes gravity as a curvature of space and time caused by the presence",
+    "sparse_text": "Explain the theory of general relativity in simple terms: The theory of general relativity is a theory of gravity developed by Albert Einstein. It describes gravity as a curvature of space and time caused by the presence",
+    "token_match_rate": 1.0,
+    "exact_text_match": true,
+    "compression": 0.030642947635135087,
+    "sparsity": 0.23065470059563042,
+    "max_logit_diff": 0.5,
+    "mean_logit_diff": 0.062744140625,
+    "same_next_token": true,
+    "top5_overlap": 5,
+    "cosine_similarity": 0.9999314546585083
+  },
+  {
+    "prompt": "Write a Python function that computes the Fibonacci sequence:",
+    "full_text": "Write a Python function that computes the Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, ",
+    "sparse_text": "Write a Python function that computes the Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, ",
+    "token_match_rate": 1.0,
+    "exact_text_match": true,
+    "compression": 0.036287403474903446,
+    "sparsity": 0.2537874788851351,
+    "max_logit_diff": 0.65625,
+    "mean_logit_diff": 0.0693359375,
+    "same_next_token": true,
+    "top5_overlap": 5,
+    "cosine_similarity": 0.9990217685699463
+  },
+  {
+    "prompt": "The three primary colors are",
+    "full_text": "The three primary colors are red, green, and blue. The three secondary colors are yellow, cyan, and magenta. The three primary colors are red, green, and",
+    "sparse_text": "The three primary colors are red, green, and blue. The three secondary colors are yellow, cyan, and magenta. The three primary colors are red, green, and",
+    "token_match_rate": 1.0,
+    "exact_text_match": true,
+    "compression": 0.03104827763030893,
+    "sparsity": 0.225344458412588,
+    "max_logit_diff": 0.359375,
+    "mean_logit_diff": 0.039093017578125,
+    "same_next_token": true,
+    "top5_overlap": 5,
+    "cosine_similarity": 0.9999082088470459
+  },
+  {
+    "prompt": "In 1969, humanity achieved something remarkable when",
+    "full_text": "In 1969, humanity achieved something remarkable when Neil Armstrong and Buzz Aldrin became the first people to walk on the moon. But the moon is not the only celestial body that has been visited by",
+    "sparse_text": "In 1969, humanity achieved something remarkable when Neil Armstrong and Buzz Aldrin became the first people to walk on the moon. But the moon is not the only celestial body that has been visited by",
+    "token_match_rate": 1.0,
+    "exact_text_match": true,
+    "compression": 0.030049092060810856,
+    "sparsity": 0.22751377248328464,
+    "max_logit_diff": 0.22265625,
+    "mean_logit_diff": 0.0273590087890625,
+    "same_next_token": true,
+    "top5_overlap": 5,
+    "cosine_similarity": 0.9999842047691345
+  }
+]

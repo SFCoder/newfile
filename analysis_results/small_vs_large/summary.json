@@ -1,0 +1,95 @@
+{
+  "model_a": {
+    "model_name": "Qwen/Qwen2.5-0.5B",
+    "tag": "small",
+    "num_layers": 24,
+    "hidden_dim": 896,
+    "intermediate_dim": 4864,
+    "num_attention_heads": 14,
+    "num_key_value_heads": 2,
+    "quantization": null,
+    "torch_dtype": "torch.float16",
+    "max_new_tokens": 64,
+    "num_prompts": 500
+  },
+  "model_b": {
+    "model_name": "Qwen/Qwen2.5-3B",
+    "tag": "large",
+    "num_layers": 36,
+    "hidden_dim": 2048,
+    "intermediate_dim": 11008,
+    "num_attention_heads": 16,
+    "num_key_value_heads": 2,
+    "quantization": null,
+    "torch_dtype": "torch.float16",
+    "max_new_tokens": 64,
+    "num_prompts": 500
+  },
+  "num_prompts": 500,
+  "classification": {
+    "logistic_regression_accuracy": 1.0,
+    "logistic_regression_auc": 1.0,
+    "random_forest_accuracy": 1.0,
+    "random_forest_auc": 1.0,
+    "per_layer_accuracies": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "statistical_separations": {
+    "sparsity_ratio": {
+      "cohens_d": 0.08071660935820148,
+      "ks_statistic": 0.5990833333333334,
+      "ks_pvalue": 0.0
+    },
+    "gini_mean": {
+      "cohens_d": 0.26708864363755674,
+      "ks_statistic": 0.5795277777777779,
+      "ks_pvalue": 0.0
+    },
+    "l1_l2_ratio": {
+      "cohens_d": -1.9963904077715504,
+      "ks_statistic": 0.7556666666666667,
+      "ks_pvalue": 0.0
+    },
+    "mag_mean": {
+      "cohens_d": -0.5341524429338952,
+      "ks_statistic": 0.4239722222222222,
+      "ks_pvalue": 0.0
+    },
+    "mag_std": {
+      "cohens_d": -0.37496891329869847,
+      "ks_statistic": 0.48802777777777784,
+      "ks_pvalue": 0.0
+    },
+    "mag_skew": {
+      "cohens_d": -1.3464018422816904,
+      "ks_statistic": 0.5833333333333333,
+      "ks_pvalue": 0.0
+    },
+    "mag_kurtosis": {
+      "cohens_d": -1.4277232403769013,
+      "ks_statistic": 0.5833333333333333,
+      "ks_pvalue": 0.0
+    },
+    "energy_concentration_top1pct": {
+      "cohens_d": -0.14338614210228634,
+      "ks_statistic": 0.4870555555555556,
+      "ks_pvalue": 0.0
+    }
+  }
+}

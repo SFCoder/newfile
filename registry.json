@@ -1,0 +1,32 @@
+{
+  "schema_version": "1",
+  "models": {
+    "Qwen/Qwen2.5-0.5B": {
+      "model_id": "Qwen/Qwen2.5-0.5B",
+      "hf_repo": "Qwen/Qwen2.5-0.5B",
+      "weight_hash": "d69088004383b22aee2d56a7d88238eb39f7add7c999f92da046fda0c96557dd",
+      "num_layers": 24,
+      "intermediate_size": 4864,
+      "hidden_size": 896,
+      "min_stake": 100
+    },
+    "Qwen/Qwen2.5-3B": {
+      "model_id": "Qwen/Qwen2.5-3B",
+      "hf_repo": "Qwen/Qwen2.5-3B",
+      "weight_hash": "71fd74069d690809c5a2788e96e3a6d35ee020c128b59a6d774534931058d408",
+      "num_layers": 36,
+      "intermediate_size": 11008,
+      "hidden_size": 2048,
+      "min_stake": 500
+    },
+    "Qwen/Qwen2.5-7B": {
+      "model_id": "Qwen/Qwen2.5-7B",
+      "hf_repo": "Qwen/Qwen2.5-7B",
+      "weight_hash": "b21b4b47cdb2bab55317204504a5b1651789462e5d9d5d649d05890df335f504",
+      "num_layers": 28,
+      "intermediate_size": 18944,
+      "hidden_size": 3584,
+      "min_stake": 1000
+    }
+  }
+}
