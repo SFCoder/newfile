@@ -984,3 +984,65 @@ echo "  provider.py        ✓"
 echo ""
 echo "Writing threshold_study.py and adversarial_study.py..."
 echo "(Run setup_cloud_part2.sh next)"
+
+# ===========================================================================
+# Environment setup (idempotent — safe to run multiple times)
+# ===========================================================================
+
+echo ""
+echo "=== Environment setup ==="
+
+# --- Install Python dependencies -------------------------------------------
+if [ -f "requirements.txt" ]; then
+    echo "Installing dependencies from requirements.txt …"
+    pip install -q -r requirements.txt
+    echo "  ✓ dependencies installed"
+else
+    echo "  [WARN] requirements.txt not found — skipping pip install"
+fi
+
+# --- HuggingFace cache symlink ---------------------------------------------
+# On cloud instances, /workspace has persistent storage; /root/.cache does not.
+# If the workspace cache exists and the root cache does not, create a symlink.
+WORKSPACE_HF_CACHE="/workspace/.cache/huggingface/hub"
+ROOT_HF_CACHE="/root/.cache/huggingface/hub"
+
+if [ -d "$WORKSPACE_HF_CACHE" ] && [ ! -e "$ROOT_HF_CACHE" ]; then
+    mkdir -p "$(dirname "$ROOT_HF_CACHE")"
+    ln -s "$WORKSPACE_HF_CACHE" "$ROOT_HF_CACHE"
+    echo "  ✓ HuggingFace cache symlink: $ROOT_HF_CACHE -> $WORKSPACE_HF_CACHE"
+elif [ -L "$ROOT_HF_CACHE" ]; then
+    echo "  ✓ HuggingFace cache symlink already exists: $ROOT_HF_CACHE"
+else
+    echo "  (no workspace HF cache found; using default cache location)"
+fi
+
+# --- Register models passed as CLI arguments --------------------------------
+# Usage: bash setup_cloud.sh Qwen/Qwen2.5-7B Qwen/Qwen2.5-72B
+# Each argument is treated as a model ID (and HF repo) to register.
+if [ "$#" -gt 0 ]; then
+    echo ""
+    echo "Registering models: $*"
+    for MODEL_ID in "$@"; do
+        echo "  Registering $MODEL_ID …"
+        python3 - <<PYEOF
+import sys
+sys.path.insert(0, '.')
+from model_registry import ModelRegistry, DEFAULT_REGISTRY_PATH
+reg = ModelRegistry(DEFAULT_REGISTRY_PATH)
+try:
+    entry = reg.register_new_model(
+        model_id="$MODEL_ID",
+        hf_repo="$MODEL_ID",
+        min_stake=0,
+        download_if_missing=True,
+    )
+    print(f"  ✓ registered $MODEL_ID (hash={entry.weight_hash[:16]}…)")
+except Exception as e:
+    print(f"  [ERROR] could not register $MODEL_ID: {e}")
+PYEOF
+    done
+fi
+
+echo ""
+echo "=== setup_cloud.sh complete ==="
