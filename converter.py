@@ -8,6 +8,9 @@ def convert_temperature(value, from_unit, to_unit):
 
     Returns:
         The converted temperature as a float.
+
+    Raises:
+        ValueError: If from_unit or to_unit is not one of 'C', 'F', or 'K'.
     """
     from_unit = from_unit.upper()
     to_unit = to_unit.upper()
