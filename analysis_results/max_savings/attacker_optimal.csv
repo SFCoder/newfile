@@ -1,0 +1,4 @@
+model_id,tier,max_safe_skip_count,best_strategy,savings_pct,token_match_rate
+Qwen/Qwen2.5-7B,complex,2,random,2.36,1.0
+Qwen/Qwen2.5-7B,moderate,3,positional_middle,3.54,0.9333
+Qwen/Qwen2.5-7B,simple,0,none,0.0,0.0
