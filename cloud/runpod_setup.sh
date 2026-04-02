@@ -17,10 +17,10 @@ set -euo pipefail
 # ── configuration ─────────────────────────────────────────────────────────
 # Edit these two lines once, then commit the change.
 GIT_USER_NAME="Your Name"
-GIT_USER_EMAIL="you@example.com"
+GIT_USER_EMAIL="benpearce1@gmail.com"
 
 # GitHub repo — update to match your fork/clone target.
-REPO_URL="https://github.com/sfcoder/newfile.git"
+REPO_URL="https://github.com/SFCoder/newfile.git"
 
 REPO_DIR="/workspace/newfile"
 WORKSPACE="/workspace"
