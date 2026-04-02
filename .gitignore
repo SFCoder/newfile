@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 .env
+# SQLite results database — rebuilt from JSON files via migrate.py
+results.db

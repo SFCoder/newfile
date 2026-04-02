@@ -60,6 +60,7 @@ from adversarial_suite.attacks.attention_skip import AttentionSkipAttack  # noqa
 from adversarial_suite.verification.local import LocalVerification        # noqa: E402
 from adversarial_suite.metrics import compute as metrics_compute          # noqa: E402
 from adversarial_suite.metrics import reporting                           # noqa: E402
+from adversarial_suite.db.writer import ResultsWriter                     # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Prompts
@@ -420,6 +421,8 @@ def run_model_experiment(
     tokenizer,
     skip_counts: list,
     complexity_filter: Optional[str],
+    db_writer: Optional["ResultsWriter"] = None,
+    registry=None,
 ) -> list:
     """
     Run the full attention-skip sweep for one loaded model.
@@ -456,6 +459,11 @@ def run_model_experiment(
 
     attack = AttentionSkipAttack()
     verifier_target = LocalVerification(model, tokenizer)
+
+    # Ensure model record in DB (if writer is active)
+    db_model_id: Optional[int] = None
+    if db_writer is not None:
+        db_model_id = db_writer.ensure_model(model_id, registry=registry)
 
     # Pre-compute honest tokens and logits for all prompts
     print(f"  [INFO] Pre-computing honest inference for all prompts …")
@@ -580,6 +588,31 @@ def run_model_experiment(
                     }
                     results.append(result_row)
 
+                    # --- Write to database ------------------------------------
+                    if db_writer is not None and db_model_id is not None:
+                        try:
+                            db_prompt_id = db_writer.ensure_prompt(
+                                prompt, complexity=tier
+                            )
+                            db_row = metrics_compute.to_db_row(
+                                attack_result,
+                                v_result,
+                                attack_params={
+                                    "layers_skipped": layers_to_skip,
+                                    "skip_strategy": strategy_name,
+                                    "skip_count": skip_count,
+                                },
+                            )
+                            db_row["model_id"] = db_model_id
+                            db_row["prompt_id"] = db_prompt_id
+                            db_row["perplexity"] = (
+                                round(perplexity, 2)
+                                if perplexity is not None else None
+                            )
+                            db_writer.add_result_from_dict(db_row)
+                        except Exception:
+                            pass  # DB write failure never aborts the experiment
+
                     # Progress line
                     short_p = prompt[:35].replace("\n", " ")
                     ver_sym = (
@@ -665,36 +698,43 @@ def main():
 
     all_results: list = []
 
-    for model_id in model_ids:
-        print()
-        print("=" * 70)
-        print(f"  MODEL: {model_id}")
-        print("=" * 70)
+    with ResultsWriter(
+        "max_savings",
+        script_path="tools/max_savings_test.py",
+        config_name="default",
+    ) as db_writer:
+        for model_id in model_ids:
+            print()
+            print("=" * 70)
+            print(f"  MODEL: {model_id}")
+            print("=" * 70)
 
-        try:
-            with ModelContext(model_id, registry, quantize=args.quantize) as ctx:
-                model_results = run_model_experiment(
-                    model_id=model_id,
-                    model=ctx.model,
-                    tokenizer=ctx.tokenizer,
-                    skip_counts=skip_counts,
-                    complexity_filter=args.complexity,
-                )
-        except KeyError:
-            print(f"  [SKIP] {model_id!r} not in registry.")
-            continue
-        except Exception as exc:
-            print(f"  [ERROR] Failed to run {model_id}: {exc}")
-            import traceback
-            traceback.print_exc()
-            continue
+            try:
+                with ModelContext(model_id, registry, quantize=args.quantize) as ctx:
+                    model_results = run_model_experiment(
+                        model_id=model_id,
+                        model=ctx.model,
+                        tokenizer=ctx.tokenizer,
+                        skip_counts=skip_counts,
+                        complexity_filter=args.complexity,
+                        db_writer=db_writer,
+                        registry=registry,
+                    )
+            except KeyError:
+                print(f"  [SKIP] {model_id!r} not in registry.")
+                continue
+            except Exception as exc:
+                print(f"  [ERROR] Failed to run {model_id}: {exc}")
+                import traceback
+                traceback.print_exc()
+                continue
 
-        all_results.extend(model_results)
+            all_results.extend(model_results)
 
-        # Checkpoint after each model
-        reporting.save_results_json(
-            all_results, OUT_DIR / "results.json"
-        )
+            # Checkpoint after each model
+            reporting.save_results_json(
+                all_results, OUT_DIR / "results.json"
+            )
 
     if not all_results:
         print("No results collected.  Exiting.")

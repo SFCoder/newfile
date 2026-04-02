@@ -277,3 +277,96 @@ def summarise(
         "mean_cosine_similarity": cos_sim,
         "perplexity": ppl,
     }
+
+
+# ---------------------------------------------------------------------------
+# Database integration helper
+# ---------------------------------------------------------------------------
+
+
+def to_db_row(
+    attack_result,
+    verification_result=None,
+    attack_params: Optional[dict] = None,
+    verification_target: str = "local",
+) -> dict:
+    """
+    Convert an AttackResult (and optional VerificationResult) into a dict
+    whose keys match the results table columns expected by
+    ResultsWriter.add_result().
+
+    This function is the bridge between the attack/verification layer and
+    the database layer, keeping both sides independent of each other.
+
+    Parameters
+    ----------
+    attack_result
+        An AttackResult dataclass instance from any attack module.
+    verification_result
+        Optional VerificationResult from a verification backend.
+        If None, pass_fail and verification_match_rate are omitted.
+    attack_params
+        Dict of attack-specific parameters to store in the attack_params
+        column (e.g. {"layers_skipped": [5, 14], "skip_strategy": "best_case"}).
+        If None, falls back to attack_result.metadata.
+    verification_target
+        "local" or "cosmos" — which backend was used.
+
+    Returns
+    -------
+    dict ready to be passed as **kwargs to ResultsWriter.add_result().
+    The caller still needs to supply model_id and prompt_id (obtained
+    from writer.ensure_model() and writer.ensure_prompt()).
+    """
+    meta = attack_result.metadata or {}
+
+    # Compute token-level metrics
+    honest = attack_result.honest_tokens or []
+    fraud = attack_result.fraudulent_tokens or []
+    match_rate = token_match_rate(honest, fraud)
+    coherence = classify_coherence(match_rate)
+
+    num_skipped = meta.get("num_layers_skipped", 0)
+    total_layers = meta.get("total_layers", 1)
+    savings = attacker_savings_pct(num_skipped, total_layers)
+
+    # Cosine similarity (if logits were captured)
+    cos_sim: Optional[float] = None
+    if attack_result.honest_logits and attack_result.fraudulent_logits:
+        try:
+            cos_sim = mean_cosine_similarity(
+                attack_result.honest_logits, attack_result.fraudulent_logits
+            )
+        except Exception:
+            pass
+
+    # Verification outcome
+    pf: Optional[bool] = None
+    ver_match: Optional[float] = None
+    if verification_result is not None:
+        pf = verification_result.verified
+        ver_match = verification_result.token_match_rate
+
+    # Resolve attack_params
+    ap = attack_params if attack_params is not None else {
+        k: v for k, v in meta.items()
+        if k not in {"attack_type", "model_id", "prompt", "num_tokens"}
+    }
+
+    row = {
+        "attack_type": meta.get("attack_type", "unknown"),
+        "attack_params": ap,
+        "token_match_rate": round(match_rate, 4),
+        "cosine_similarity": round(cos_sim, 4) if cos_sim is not None else None,
+        "coherence": coherence,
+        "savings_pct": round(savings, 2),
+        "pass_fail": pf,
+        "verification_target": verification_target,
+        "raw_data": {
+            "honest_tokens": honest,
+            "fraudulent_tokens": fraud,
+            "verification_match_rate": ver_match,
+            "layers_skipped": meta.get("layers_skipped"),
+        },
+    }
+    return row
