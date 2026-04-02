@@ -9,10 +9,14 @@ already exists the file is skipped.
 
 Source files
 ------------
-analysis_results/threshold_study/results.json   → attack_type="threshold_sweep"
-analysis_results/adversarial_study/results.json → attack_type derived from scenario
-analysis_results/sparse_replay/results.json     → attack_type="honest" (sparse masks)
-analysis_results/max_savings/results.json       → attack_type="attention_skip"
+analysis_results/threshold_study/results.json     → attack_type="threshold_sweep"
+analysis_results/adversarial_study/results.json   → attack_type derived from scenario
+analysis_results/sparse_replay/results.json       → attack_type="honest" (sparse masks)
+analysis_results/max_savings/results.json         → attack_type="attention_skip"
+analysis_results/attention_trust/results.json     → attack_type="attention_skip"|"fake_ffn"
+analysis_results/split_verification/results.json  → attack_type="split_verification"
+analysis_results/self_consistency/summary.json    → attack_type="fingerprint"
+analysis_results/small_vs_large/summary.json      → attack_type="fingerprint"
 
 standard_v1 auto-detection
 ---------------------------
@@ -53,6 +57,15 @@ from adversarial_suite.db.standard_format import is_standard_format        # noq
 ANALYSIS_DIR = _ROOT / "analysis_results"
 
 # Complexity tier lookup for known prompts used across experiments
+# Prompt index → text used by attention_trust and split_verification experiments
+_PROMPT_BY_IDX: dict = {
+    0: "The capital of France is",
+    1: "Water boils at 100 degrees Celsius at sea level, but at high altitude it boils at",
+    2: "The speed of light in a vacuum is approximately",
+    3: "Once upon a time in a land far away, there lived a young inventor who",
+    4: "The old detective walked slowly toward the dimly lit warehouse and",
+}
+
 _KNOWN_COMPLEXITY: dict = {
     "The capital of France is": "simple",
     "Water boils at 100 degrees Celsius": "simple",
@@ -316,6 +329,209 @@ def migrate_max_savings(writer: ResultsWriter, data: list, dry_run: bool) -> int
 
 
 # ---------------------------------------------------------------------------
+# New parsers: attention_trust, split_verification, fingerprint studies
+# ---------------------------------------------------------------------------
+
+
+def migrate_attention_trust(writer: ResultsWriter, data: list, dry_run: bool) -> int:
+    """
+    Import attention_trust results.
+
+    Each record is one (prompt, target_layer, intervention, fake_type) combination.
+    Records with ``skipped=True`` are omitted.
+
+    intervention → attack_type:
+      fake_attn → "attention_skip"
+      fake_ffn  → "fake_ffn"
+    """
+    n = 0
+    for rec in data:
+        if rec.get("skipped"):
+            continue
+
+        intervention = rec.get("intervention", "")
+        if intervention == "fake_attn":
+            at = "attention_skip"
+        elif intervention == "fake_ffn":
+            at = "fake_ffn"
+        else:
+            at = intervention or "unknown"
+
+        prompt = rec.get("prompt") or _PROMPT_BY_IDX.get(rec.get("prompt_idx", -1), "")
+        if not prompt:
+            continue
+
+        if not dry_run:
+            model_id = writer.ensure_model("Qwen/Qwen2.5-7B")
+            prompt_id = writer.ensure_prompt(
+                prompt, complexity=_infer_complexity(prompt)
+            )
+            writer.add_result(
+                model_id=model_id,
+                prompt_id=prompt_id,
+                attack_type=at,
+                attack_params={
+                    "target_layer": rec.get("target_layer"),
+                    "fake_type": rec.get("fake_type"),
+                },
+                layer=rec.get("target_layer"),
+                token_match_rate=rec.get("token_match_rate"),
+                cosine_similarity=rec.get("avg_cosine_sim"),
+                perplexity=rec.get("perplexity"),
+                coherence=rec.get("coherence"),
+                verification_target="local",
+                raw_data={
+                    "generated_text": rec.get("generated_text"),
+                    "prompt_idx": rec.get("prompt_idx"),
+                },
+            )
+        n += 1
+
+    return n
+
+
+def migrate_split_verification(writer: ResultsWriter, data: dict, dry_run: bool) -> int:
+    """
+    Import split_verification results.
+
+    The file contains two lists:
+      uniform_splits (980 records) — uniform partitioning, has token_match_rate
+      masked_splits  (420 records) — neuron-mask partitioning, has n_active_neurons
+
+    attack_type = "split_verification"
+    cosine_similarity  = zero_multiply.cos_sim
+    absolute_error     = zero_multiply.max_abs_diff
+    layer              = layer_idx
+    """
+    n = 0
+
+    def _process(records: list, split_type: str) -> None:
+        nonlocal n
+        for rec in records:
+            prompt = _PROMPT_BY_IDX.get(rec.get("prompt_idx", -1), "")
+            if not prompt:
+                continue
+            if not dry_run:
+                model_id = writer.ensure_model("Qwen/Qwen2.5-7B")
+                prompt_id = writer.ensure_prompt(
+                    prompt, complexity=_infer_complexity(prompt)
+                )
+                zm = rec.get("zero_multiply", {})
+                cs = rec.get("column_slice", {})
+                zmcs = rec.get("zm_vs_cs", {})
+                writer.add_result(
+                    model_id=model_id,
+                    prompt_id=prompt_id,
+                    attack_type="split_verification",
+                    attack_params={
+                        "n_splits": rec.get("n_splits"),
+                        "split_type": split_type,
+                    },
+                    layer=rec.get("layer_idx"),
+                    token_match_rate=rec.get("token_match_rate"),
+                    cosine_similarity=zm.get("cos_sim"),
+                    absolute_error=zm.get("max_abs_diff"),
+                    verification_target="local",
+                    raw_data={
+                        "zero_multiply_rel_error": zm.get("rel_error"),
+                        "column_slice_cos_sim": cs.get("cos_sim"),
+                        "column_slice_max_abs_diff": cs.get("max_abs_diff"),
+                        "zm_vs_cs_cos_sim": zmcs.get("cos_sim"),
+                        "zm_vs_cs_max_abs_diff": zmcs.get("max_abs_diff"),
+                        "n_active_neurons": rec.get("n_active_neurons"),
+                    },
+                )
+            n += 1
+
+    uniform = data.get("uniform_splits", []) if isinstance(data, dict) else []
+    masked = data.get("masked_splits", []) if isinstance(data, dict) else []
+    _process(uniform, "uniform")
+    _process(masked, "masked")
+    return n
+
+
+def migrate_fingerprint(writer: ResultsWriter, data: dict, dry_run: bool) -> int:
+    """
+    Import fingerprint study summary results (self_consistency or small_vs_large).
+
+    The file is a single summary dict with model_a, model_b, classification
+    accuracy/AUC, per-layer accuracies, and statistical separation metrics.
+
+    We write:
+      - one aggregate result row with classification stats in raw_data
+      - one result row per layer (layer=i, token_match_rate=per_layer_accuracy)
+
+    attack_type = "fingerprint"
+    pass_fail   = True if logistic_regression_accuracy > 0.6
+    """
+    model_a = data.get("model_a", {})
+    model_b = data.get("model_b", {})
+    model_a_name = model_a.get("model_name", "unknown")
+    model_b_name = model_b.get("model_name", "unknown")
+    num_prompts = data.get("num_prompts", 0)
+
+    classification = data.get("classification", {})
+    lr_acc = classification.get("logistic_regression_accuracy")
+    rf_auc = classification.get("random_forest_auc")
+    per_layer = classification.get("per_layer_accuracies", [])
+    sep = data.get("statistical_separations", {})
+
+    # Synthetic prompt that uniquely identifies the comparison
+    synthetic_prompt = (
+        f"fingerprint_study: {model_a_name} vs {model_b_name} ({num_prompts} prompts)"
+    )
+
+    n = 0
+
+    if not dry_run:
+        model_id = writer.ensure_model(
+            model_a_name,
+            num_layers=model_a.get("num_layers"),
+            hidden_size=model_a.get("hidden_dim"),
+            intermediate_size=model_a.get("intermediate_dim"),
+        )
+        prompt_id = writer.ensure_prompt(synthetic_prompt)
+
+        # Aggregate row
+        writer.add_result(
+            model_id=model_id,
+            prompt_id=prompt_id,
+            attack_type="fingerprint",
+            attack_params={"model_b": model_b_name, "comparison": "aggregate"},
+            token_match_rate=lr_acc,
+            cosine_similarity=rf_auc,
+            pass_fail=bool(lr_acc > 0.6) if lr_acc is not None else None,
+            verification_target="local",
+            raw_data={
+                "model_b": model_b_name,
+                "logistic_regression_accuracy": lr_acc,
+                "logistic_regression_auc": classification.get("logistic_regression_auc"),
+                "random_forest_accuracy": classification.get("random_forest_accuracy"),
+                "random_forest_auc": rf_auc,
+                "statistical_separations": sep,
+            },
+        )
+    n += 1
+
+    # Per-layer rows
+    for layer_idx, acc in enumerate(per_layer):
+        if not dry_run:
+            writer.add_result(
+                model_id=model_id,
+                prompt_id=prompt_id,
+                attack_type="fingerprint",
+                attack_params={"model_b": model_b_name, "comparison": "per_layer"},
+                layer=layer_idx,
+                token_match_rate=acc,
+                pass_fail=bool(acc > 0.6) if acc is not None else None,
+                verification_target="local",
+            )
+        n += 1
+
+    return n
+
+
+# ---------------------------------------------------------------------------
 # standard_v1 importer — no custom parser needed
 # ---------------------------------------------------------------------------
 
@@ -463,6 +679,34 @@ _MIGRATIONS = [
         "experiment_name": "max_savings",
         "script_path": "tools/max_savings_test.py",
         "fn": migrate_max_savings,
+    },
+    {
+        "marker": "attention_trust/results.json",
+        "path": ANALYSIS_DIR / "attention_trust" / "results.json",
+        "experiment_name": "attention_trust",
+        "script_path": "tools/attention_trust.py",
+        "fn": migrate_attention_trust,
+    },
+    {
+        "marker": "split_verification/results.json",
+        "path": ANALYSIS_DIR / "split_verification" / "results.json",
+        "experiment_name": "split_verification",
+        "script_path": "tools/split_verification.py",
+        "fn": migrate_split_verification,
+    },
+    {
+        "marker": "self_consistency/summary.json",
+        "path": ANALYSIS_DIR / "self_consistency" / "summary.json",
+        "experiment_name": "self_consistency",
+        "script_path": "tools/self_consistency.py",
+        "fn": migrate_fingerprint,
+    },
+    {
+        "marker": "small_vs_large/summary.json",
+        "path": ANALYSIS_DIR / "small_vs_large" / "summary.json",
+        "experiment_name": "small_vs_large",
+        "script_path": "tools/small_vs_large.py",
+        "fn": migrate_fingerprint,
     },
 ]
 
