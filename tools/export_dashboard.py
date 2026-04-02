@@ -92,11 +92,64 @@ def query_data(db_path: Path) -> dict:
         row = dict(r)
         results.append(row)
 
+    # --- per-layer sparsity: {model: {threshold_str: [compression_pct, ...]}} ---
+    sparsity_data: dict = {}
+    for row in conn.execute("""
+        SELECT m.model_name,
+               CAST(json_extract(r.attack_params, '$.threshold') AS REAL) AS threshold,
+               r.layer, r.compression_pct
+        FROM   results r JOIN models m ON m.id = r.model_id
+        WHERE  r.attack_type = 'honest' AND r.layer IS NOT NULL
+          AND  json_extract(r.attack_params, '$.experiment') = 'per_layer_sparsity'
+        ORDER BY m.model_name, threshold, r.layer
+    """):
+        m   = row["model_name"]
+        t   = f"{row['threshold']:.4g}"   # "0.1", "0.05", "0.01", "0.005", "0.001"
+        val = row["compression_pct"]
+        sparsity_data.setdefault(m, {}).setdefault(t, []).append(val)
+
+    # --- threshold sweep: [{model_name, threshold, avg_pass, avg_compression}] ---
+    threshold_sweep = [
+        dict(r) for r in conn.execute("""
+            SELECT m.model_name,
+                   CAST(json_extract(r.attack_params, '$.threshold') AS REAL) AS threshold,
+                   ROUND(AVG(r.token_match_rate),  4) AS avg_pass,
+                   ROUND(AVG(r.compression_pct),   3) AS avg_compression
+            FROM   results r JOIN models m ON m.id = r.model_id
+            WHERE  r.attack_type = 'threshold_sweep'
+              AND  r.layer IS NULL AND r.position IS NULL
+              AND  r.token_match_rate IS NOT NULL
+            GROUP BY m.model_name, threshold
+            ORDER BY m.model_name, threshold
+        """)
+    ]
+
+    # --- max safe savings: [{model_name, complexity_tier, max_safe_savings}] ---
+    # max savings_pct where token_match_rate >= 0.8; 0 if no such row exists
+    max_savings = [
+        dict(r) for r in conn.execute("""
+            SELECT m.model_name, p.complexity_tier,
+                   MAX(CASE WHEN r.token_match_rate >= 0.8
+                            THEN r.savings_pct ELSE 0 END) AS max_safe_savings
+            FROM   results r
+            JOIN   models  m ON m.id = r.model_id
+            JOIN   prompts p ON p.id = r.prompt_id
+            WHERE  r.attack_type = 'attention_skip'
+              AND  r.layer IS NULL AND r.savings_pct IS NOT NULL
+              AND  r.token_match_rate IS NOT NULL
+            GROUP BY m.model_name, p.complexity_tier
+            ORDER BY m.model_name, p.complexity_tier
+        """)
+    ]
+
     conn.close()
     return {
-        "meta":         meta,
-        "attackStats":  attack_stats,
-        "results":      results,
+        "meta":           meta,
+        "attackStats":    attack_stats,
+        "results":        results,
+        "sparsityData":   sparsity_data,
+        "thresholdSweep": threshold_sweep,
+        "maxSavings":     max_savings,
     }
 
 
@@ -301,6 +354,38 @@ tr.row-ambig   td { background: rgba(251,191,36,.04); }
 .pagination button:disabled { opacity: .35; cursor: default; }
 .pagination button:not(:disabled):hover { border-color: var(--accent); }
 .pg-info { margin: 0 8px; }
+
+/* ---------- two-chart row ---------- */
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+
+/* ---------- in-chart controls (threshold dropdown) ---------- */
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.chart-controls h3 { flex: 1; }
+.ctrl-label {
+  font-size: .8rem;
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.ctrl-label select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: .8rem;
+  cursor: pointer;
+}
+.ctrl-label select:focus { outline: 2px solid var(--accent); }
 </style>
 </head>
 <body>
@@ -342,6 +427,41 @@ tr.row-ambig   td { background: rgba(251,191,36,.04); }
   <div class="chart-panel">
     <h3>Average token match rate by attack type (aggregate rows only)</h3>
     <canvas id="chart-attacks" height="300"></canvas>
+  </div>
+</section>
+
+<!-- Per-layer sparsity line chart -->
+<section>
+  <h2>Per-Layer Sparsity</h2>
+  <div class="chart-panel">
+    <div class="chart-controls">
+      <h3>Compression % by layer — one line per model</h3>
+      <label class="ctrl-label">Threshold
+        <select id="f-threshold">
+          <option value="0.1">0.1</option>
+          <option value="0.05">0.05</option>
+          <option value="0.01">0.01</option>
+          <option value="0.005">0.005</option>
+          <option value="0.001">0.001</option>
+        </select>
+      </label>
+    </div>
+    <canvas id="chart-sparsity" height="280"></canvas>
+  </div>
+</section>
+
+<!-- Threshold sweep + Max savings side by side -->
+<section>
+  <h2>Verification Analysis</h2>
+  <div class="chart-row">
+    <div class="chart-panel">
+      <h3>Pass rate vs. neuron threshold (log scale)</h3>
+      <canvas id="chart-threshold" height="280"></canvas>
+    </div>
+    <div class="chart-panel">
+      <h3>Max safe attacker savings by complexity (token match ≥ 80%)</h3>
+      <canvas id="chart-savings" height="280"></canvas>
+    </div>
   </div>
 </section>
 
@@ -400,15 +520,25 @@ const ATTACK_COLORS = {
 };
 function attackColor(t) { return ATTACK_COLORS[t] || '#8080b0'; }
 
+const MODEL_COLORS = {
+  'Qwen/Qwen2.5-0.5B': '#4ecdc4',
+  'Qwen/Qwen2.5-3B':   '#45b7d1',
+  'Qwen/Qwen2.5-7B':   '#7ed680',
+  'Qwen/Qwen2.5-72B':  '#f7c948',
+};
+function modelColor(m) { return MODEL_COLORS[m] || '#8080b0'; }
+function modelShort(m)  { return m.split('/').pop(); }
+
 // ── state ──────────────────────────────────────────────────────────────────
 const state = {
-  filterModel:     '',
-  filterAttack:    '',
-  filterComplexity:'',
-  sortCol:         'id',
-  sortDir:         1,   // 1 = asc, -1 = desc
-  page:            0,
-  PER_PAGE:        50,
+  filterModel:        '',
+  filterAttack:       '',
+  filterComplexity:   '',
+  sparsityThreshold:  '0.1',
+  sortCol:            'id',
+  sortDir:            1,   // 1 = asc, -1 = desc
+  page:               0,
+  PER_PAGE:           50,
 };
 
 // ── filtering ──────────────────────────────────────────────────────────────
@@ -437,6 +567,272 @@ function setupCanvas(id) {
   const ctx = el.getContext('2d');
   ctx.scale(dpr, dpr);
   return { ctx, W, H };
+}
+
+// ── drawing utilities ─────────────────────────────────────────────────────
+
+// Nice tick step for an axis range
+function niceTick(range, target) {
+  if (range <= 0) return 1;
+  const step = range / target;
+  const exp  = Math.pow(10, Math.floor(Math.log10(step)));
+  const f    = step / exp;
+  if (f < 1.5) return exp;
+  if (f < 3.5) return 2 * exp;
+  if (f < 7.5) return 5 * exp;
+  return 10 * exp;
+}
+
+function linTicks(min, max, n) {
+  const step = niceTick(max - min, n);
+  const start = Math.floor(min / step) * step;
+  const ticks = [];
+  for (let t = start; t <= max + step * 0.01; t += step) {
+    ticks.push(Math.round(t * 1e10) / 1e10);
+  }
+  return ticks;
+}
+
+function fmtThresh(v) {
+  // Compact label for threshold axis: "0.1", "1e-3", etc.
+  if (v >= 0.01) return v.toString();
+  return v.toExponential(0);
+}
+
+// Shared line-chart renderer (used by sparsity + threshold sweep)
+function drawLineChart(id, series, opts) {
+  opts = opts || {};
+  const c = setupCanvas(id);
+  if (!c || !series.length) return;
+  const { ctx, W, H } = c;
+
+  const pad   = { t: 20, r: 130, b: 44, l: 52 };
+  const plotW = W - pad.l - pad.r;
+  const plotH = H - pad.t - pad.b;
+
+  ctx.fillStyle = '#16213e';
+  ctx.fillRect(0, 0, W, H);
+
+  const allPts = series.flatMap(s => s.pts);
+  if (!allPts.length) return;
+
+  const xVals = allPts.map(p => p.x);
+  const yVals = allPts.map(p => p.y);
+  const xMin  = opts.xMin != null ? opts.xMin : Math.min(...xVals);
+  const xMax  = opts.xMax != null ? opts.xMax : Math.max(...xVals);
+  const yMin  = opts.yMin != null ? opts.yMin : 0;
+  const yMax  = opts.yMax != null ? opts.yMax : Math.max(...yVals) * 1.06 || 1;
+
+  const toX = opts.xLog
+    ? v => pad.l + (Math.log10(v) - Math.log10(xMin)) / (Math.log10(xMax) - Math.log10(xMin)) * plotW
+    : v => pad.l + (xMax === xMin ? 0 : (v - xMin) / (xMax - xMin) * plotW);
+  const toY = v => pad.t + plotH - (yMax === yMin ? 0 : (v - yMin) / (yMax - yMin) * plotH);
+
+  // Y grid + labels
+  const yStep = niceTick(yMax - yMin, 5);
+  for (let y = Math.floor(yMin / yStep) * yStep; y <= yMax + yStep * 0.01; y += yStep) {
+    if (y < yMin - yStep * 0.1) continue;
+    const py = toY(y);
+    ctx.strokeStyle = '#2a2a5a'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, py); ctx.lineTo(pad.l + plotW, py); ctx.stroke();
+    ctx.fillStyle = '#8080b0'; ctx.font = '10px system-ui'; ctx.textAlign = 'right';
+    ctx.fillText(opts.yPct ? y.toFixed(0) + '%' : y.toFixed(1), pad.l - 5, py + 3);
+  }
+
+  // X grid + labels
+  const xTicks = opts.xLog
+    ? [...new Set(allPts.map(p => p.x))].sort((a, b) => a - b)
+    : linTicks(xMin, xMax, 6);
+  xTicks.forEach(v => {
+    const px = toX(v);
+    if (px < pad.l - 1 || px > pad.l + plotW + 1) return;
+    ctx.strokeStyle = '#2a2a5a'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(px, pad.t); ctx.lineTo(px, pad.t + plotH); ctx.stroke();
+    ctx.fillStyle = '#8080b0'; ctx.font = '10px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText(opts.xLog ? fmtThresh(v) : String(Math.round(v)), px, pad.t + plotH + 14);
+  });
+
+  // Axis border
+  ctx.strokeStyle = '#2a2a5a'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t);
+  ctx.lineTo(pad.l, pad.t + plotH);
+  ctx.lineTo(pad.l + plotW, pad.t + plotH);
+  ctx.stroke();
+
+  // Lines + dots
+  series.forEach(s => {
+    if (!s.pts.length) return;
+    const sorted = opts.xLog ? [...s.pts].sort((a, b) => a.x - b.x) : s.pts;
+    ctx.strokeStyle = s.color; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    sorted.forEach((p, i) => {
+      const x = toX(p.x), y = toY(p.y);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.fillStyle = s.color;
+    sorted.forEach(p => {
+      ctx.beginPath(); ctx.arc(toX(p.x), toY(p.y), 3, 0, Math.PI * 2); ctx.fill();
+    });
+  });
+
+  // Legend
+  series.forEach((s, i) => {
+    const lx = pad.l + plotW + 10, ly = pad.t + 14 + i * 20;
+    ctx.fillStyle = s.color; ctx.fillRect(lx, ly - 5, 16, 3);
+    ctx.fillStyle = '#e0e0f0'; ctx.font = '11px system-ui'; ctx.textAlign = 'left';
+    ctx.fillText(s.label, lx + 20, ly);
+  });
+
+  // Axis labels
+  if (opts.xLabel) {
+    ctx.fillStyle = '#8080b0'; ctx.font = '11px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText(opts.xLabel, pad.l + plotW / 2, H - 6);
+  }
+  if (opts.yLabel) {
+    ctx.save();
+    ctx.fillStyle = '#8080b0'; ctx.font = '11px system-ui';
+    ctx.translate(12, pad.t + plotH / 2); ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center'; ctx.fillText(opts.yLabel, 0, 0);
+    ctx.restore();
+  }
+}
+
+// ── per-layer sparsity line chart ─────────────────────────────────────────
+function renderSparsityChart() {
+  const thresh    = state.sparsityThreshold;
+  const allModels = Object.keys(DB.sparsityData).sort();
+  const models    = state.filterModel ? allModels.filter(m => m === state.filterModel) : allModels;
+
+  const series = models
+    .filter(m => DB.sparsityData[m] && DB.sparsityData[m][thresh])
+    .map(m => ({
+      label: modelShort(m),
+      color: modelColor(m),
+      pts:   DB.sparsityData[m][thresh].map((y, i) => ({ x: i, y })),
+    }));
+
+  drawLineChart('chart-sparsity', series, {
+    xLabel: 'Layer index',
+    yLabel: 'Compression %',
+    yPct:   true,
+  });
+}
+
+// ── threshold sweep line chart ────────────────────────────────────────────
+function renderThresholdChart() {
+  const byModel = {};
+  DB.thresholdSweep.forEach(r => {
+    if (state.filterModel && r.model_name !== state.filterModel) return;
+    byModel[r.model_name] = byModel[r.model_name] || [];
+    byModel[r.model_name].push({ x: r.threshold, y: r.avg_pass * 100 });
+  });
+
+  const series = Object.entries(byModel).map(([m, pts]) => ({
+    label: modelShort(m),
+    color: modelColor(m),
+    pts:   pts.sort((a, b) => a.x - b.x),
+  }));
+
+  drawLineChart('chart-threshold', series, {
+    xLog:   true,
+    xLabel: 'Neuron threshold',
+    yLabel: 'Pass rate %',
+    yPct:   true,
+    yMin:   75,
+    yMax:   101,
+  });
+}
+
+// ── max safe savings grouped bar chart ────────────────────────────────────
+function renderSavingsChart() {
+  // Filter rows by active model + complexity filters
+  const rows = DB.maxSavings.filter(r =>
+    (!state.filterModel      || r.model_name      === state.filterModel) &&
+    (!state.filterComplexity || r.complexity_tier === state.filterComplexity)
+  );
+
+  const allTiers  = [...new Set(DB.maxSavings.map(r => r.complexity_tier))].sort();
+  const allModels = [...new Set(DB.maxSavings.map(r => r.model_name))].sort();
+  const tiers  = state.filterComplexity ? [state.filterComplexity] : allTiers;
+  const models = state.filterModel      ? [state.filterModel]      : allModels;
+
+  const c = setupCanvas('chart-savings');
+  if (!c) return;
+  const { ctx, W, H } = c;
+
+  const pad   = { t: 20, r: 130, b: 44, l: 52 };
+  const plotW = W - pad.l - pad.r;
+  const plotH = H - pad.t - pad.b;
+
+  ctx.fillStyle = '#16213e';
+  ctx.fillRect(0, 0, W, H);
+
+  const allVals = rows.map(r => r.max_safe_savings).filter(v => v != null);
+  const yMax  = Math.max(5, ...(allVals.length ? allVals : [0])) * 1.2;
+  const toY   = v => pad.t + plotH - (v / yMax) * plotH;
+
+  // Y grid
+  const yStep = niceTick(yMax, 5);
+  for (let y = 0; y <= yMax + yStep * 0.01; y += yStep) {
+    const py = toY(y);
+    ctx.strokeStyle = '#2a2a5a'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, py); ctx.lineTo(pad.l + plotW, py); ctx.stroke();
+    ctx.fillStyle = '#8080b0'; ctx.font = '10px system-ui'; ctx.textAlign = 'right';
+    ctx.fillText(y.toFixed(1) + '%', pad.l - 5, py + 3);
+  }
+
+  // Grouped bars
+  const groupW = plotW / tiers.length;
+  const barW   = Math.min(32, Math.max(8, groupW / (models.length + 1)));
+
+  tiers.forEach((tier, gi) => {
+    const gx = pad.l + gi * groupW + groupW / 2;
+    const totalBW = models.length * barW;
+    models.forEach((model, mi) => {
+      const row = rows.find(r => r.model_name === model && r.complexity_tier === tier);
+      const val = row ? (row.max_safe_savings || 0) : 0;
+      const bx  = gx - totalBW / 2 + mi * barW;
+      const py  = toY(val);
+      const bh  = pad.t + plotH - py;
+
+      ctx.fillStyle = modelColor(model); ctx.globalAlpha = 0.85;
+      if (bh > 0) ctx.fillRect(bx, py, barW - 2, bh);
+      ctx.globalAlpha = 1;
+
+      // Value label above bar
+      if (val > 0) {
+        ctx.fillStyle = modelColor(model); ctx.font = '10px system-ui'; ctx.textAlign = 'center';
+        ctx.fillText(val.toFixed(2) + '%', bx + (barW - 2) / 2, py - 4);
+      }
+    });
+
+    // Tier label
+    ctx.fillStyle = '#8080b0'; ctx.font = '11px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText(tier, gx, pad.t + plotH + 16);
+  });
+
+  // Axis border
+  ctx.strokeStyle = '#2a2a5a'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t + plotH); ctx.lineTo(pad.l + plotW, pad.t + plotH);
+  ctx.stroke();
+
+  // Legend
+  models.forEach((m, i) => {
+    const lx = pad.l + plotW + 10, ly = pad.t + 14 + i * 20;
+    ctx.fillStyle = modelColor(m); ctx.fillRect(lx, ly - 6, 16, 10);
+    ctx.fillStyle = '#e0e0f0'; ctx.font = '11px system-ui'; ctx.textAlign = 'left';
+    ctx.fillText(modelShort(m), lx + 20, ly);
+  });
+
+  // Y-axis label
+  ctx.save();
+  ctx.fillStyle = '#8080b0'; ctx.font = '11px system-ui';
+  ctx.translate(12, pad.t + plotH / 2); ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = 'center'; ctx.fillText('Max safe savings %', 0, 0);
+  ctx.restore();
 }
 
 // ── attack bar chart ───────────────────────────────────────────────────────
@@ -632,6 +1028,9 @@ function updateSortArrows() {
 // ── render all ────────────────────────────────────────────────────────────
 function renderAll() {
   renderAttackChart();
+  renderSparsityChart();
+  renderThresholdChart();
+  renderSavingsChart();
   renderTable();
   updateSortArrows();
 }
@@ -675,11 +1074,22 @@ document.querySelectorAll('#tbl th[data-col]').forEach(th => {
   });
 });
 
-// Redraw chart on resize
+// Threshold dropdown for sparsity chart
+document.getElementById('f-threshold').addEventListener('change', e => {
+  state.sparsityThreshold = e.target.value;
+  renderSparsityChart();
+});
+
+// Redraw all canvases on resize
 let _rsz;
 window.addEventListener('resize', () => {
   clearTimeout(_rsz);
-  _rsz = setTimeout(renderAttackChart, 120);
+  _rsz = setTimeout(() => {
+    renderAttackChart();
+    renderSparsityChart();
+    renderThresholdChart();
+    renderSavingsChart();
+  }, 120);
 });
 
 // ── init ──────────────────────────────────────────────────────────────────
