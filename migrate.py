@@ -18,6 +18,10 @@ analysis_results/split_verification/results.json  → attack_type="split_verific
 analysis_results/self_consistency/summary.json    → attack_type="fingerprint"
 analysis_results/small_vs_large/summary.json      → attack_type="fingerprint"
 
+analysis_results/threshold_study_72B/results.json  → attack_type="threshold_sweep" (72B)
+analysis_results/adversarial_study_72B/results.json → attack_type derived from scenario (72B)
+analysis_results/per_layer_sparsity_72B.json        → attack_type="honest", per-layer compression
+
 standard_v1 auto-detection
 ---------------------------
 Any JSON file anywhere under analysis_results/ that contains the key
@@ -531,6 +535,59 @@ def migrate_fingerprint(writer: ResultsWriter, data: dict, dry_run: bool) -> int
     return n
 
 
+def migrate_per_layer_sparsity(writer: ResultsWriter, data: dict, dry_run: bool) -> int:
+    """
+    Import per_layer_sparsity data for one or more models.
+
+    File structure::
+
+        {
+          "Qwen/Qwen2.5-7B":  {"0.1": {"0": 79.49, "1": 92.23, ...}, ...},
+          "Qwen/Qwen2.5-72B": {"0.1": {"0": ..., ...}, ...}
+        }
+
+    One result row per (model, threshold, layer_idx) triple.
+    attack_type = "honest"
+    compression_pct = the stored float value
+    """
+    n = 0
+    if not isinstance(data, dict):
+        return 0
+    for model_name, thresholds in data.items():
+        if not isinstance(thresholds, dict):
+            continue
+        # Synthetic prompt that uniquely identifies this model's sparsity study
+        synthetic_prompt = f"per_layer_sparsity_study: {model_name}"
+        if not dry_run:
+            model_id = writer.ensure_model(model_name)
+            prompt_id = writer.ensure_prompt(synthetic_prompt)
+        for threshold_str, layers in thresholds.items():
+            if not isinstance(layers, dict):
+                continue
+            try:
+                threshold_val = float(threshold_str)
+            except ValueError:
+                threshold_val = None
+            ap = {"threshold": threshold_val, "experiment": "per_layer_sparsity"}
+            for layer_str, compression in layers.items():
+                try:
+                    layer_idx = int(layer_str)
+                except ValueError:
+                    continue
+                if not dry_run:
+                    writer.add_result(
+                        model_id=model_id,
+                        prompt_id=prompt_id,
+                        attack_type="honest",
+                        attack_params=ap,
+                        layer=layer_idx,
+                        compression_pct=compression,
+                        verification_target="local",
+                    )
+                n += 1
+    return n
+
+
 # ---------------------------------------------------------------------------
 # standard_v1 importer — no custom parser needed
 # ---------------------------------------------------------------------------
@@ -679,6 +736,27 @@ _MIGRATIONS = [
         "experiment_name": "max_savings",
         "script_path": "tools/max_savings_test.py",
         "fn": migrate_max_savings,
+    },
+    {
+        "marker": "threshold_study_72B/results.json",
+        "path": ANALYSIS_DIR / "threshold_study_72B" / "results.json",
+        "experiment_name": "threshold_study_72B",
+        "script_path": "tools/threshold_study.py",
+        "fn": migrate_threshold_study,
+    },
+    {
+        "marker": "adversarial_study_72B/results.json",
+        "path": ANALYSIS_DIR / "adversarial_study_72B" / "results.json",
+        "experiment_name": "adversarial_study_72B",
+        "script_path": "tools/adversarial_study.py",
+        "fn": migrate_adversarial_study,
+    },
+    {
+        "marker": "per_layer_sparsity_72B.json",
+        "path": ANALYSIS_DIR / "per_layer_sparsity_72B.json",
+        "experiment_name": "per_layer_sparsity_72B",
+        "script_path": "tools/per_layer_sparsity.py",
+        "fn": migrate_per_layer_sparsity,
     },
     {
         "marker": "attention_trust/results.json",
