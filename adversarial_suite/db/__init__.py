@@ -24,5 +24,10 @@ Quick start::
 
 from adversarial_suite.db.schema import init_db, get_connection, DEFAULT_DB_PATH
 from adversarial_suite.db.writer import ResultsWriter
+from adversarial_suite.db.standard_format import write_standard_results, is_standard_format
 
-__all__ = ["init_db", "get_connection", "DEFAULT_DB_PATH", "ResultsWriter"]
+__all__ = [
+    "init_db", "get_connection", "DEFAULT_DB_PATH",
+    "ResultsWriter",
+    "write_standard_results", "is_standard_format",
+]

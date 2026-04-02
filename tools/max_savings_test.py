@@ -61,6 +61,7 @@ from adversarial_suite.verification.local import LocalVerification        # noqa
 from adversarial_suite.metrics import compute as metrics_compute          # noqa: E402
 from adversarial_suite.metrics import reporting                           # noqa: E402
 from adversarial_suite.db.writer import ResultsWriter                     # noqa: E402
+from adversarial_suite.db.standard_format import write_standard_results   # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Prompts
@@ -630,6 +631,50 @@ def run_model_experiment(
 
 
 # ===========================================================================
+# Standard-format conversion
+# ===========================================================================
+
+
+def _to_standard_record(r: dict) -> dict:
+    """
+    Convert one max_savings result dict to a standard_v1 record.
+
+    The internal result dict uses script-specific keys (model_id, prompt,
+    tier, strategy, …).  This maps them to the universal column names so
+    migrate.py can import the file without a custom parser.
+    """
+    meta = r.get("metadata", {})
+    return {
+        # ── required ───────────────────────────────────────────────────
+        "model_name":  r["model_id"],
+        "prompt_text": r["prompt"],
+        "attack_type": "attention_skip",
+        # ── model metadata ─────────────────────────────────────────────
+        "model_num_layers":  meta.get("num_layers"),
+        "model_hidden_size": meta.get("hidden_size"),
+        # ── prompt metadata ────────────────────────────────────────────
+        "prompt_complexity": r.get("tier"),
+        # ── result columns ─────────────────────────────────────────────
+        "attack_params": {
+            "layers_skipped":  r.get("layers_skipped", []),
+            "skip_strategy":   r.get("strategy", ""),
+            "skip_count":      r.get("skip_count"),
+        },
+        "token_match_rate":  r.get("token_match_rate"),
+        "cosine_similarity": r.get("mean_cosine_similarity"),
+        "perplexity":        r.get("perplexity"),
+        "coherence":         r.get("coherence"),
+        "savings_pct":       r.get("savings_pct"),
+        "pass_fail":         r.get("verification_passed"),
+        "verification_target": "local",
+        "raw_data": {
+            "verification_match_rate": r.get("verification_match_rate"),
+            "elapsed_s":               r.get("elapsed_s"),
+        },
+    }
+
+
+# ===========================================================================
 # CLI
 # ===========================================================================
 
@@ -744,6 +789,12 @@ def main():
     reporting.save_results_json(all_results, OUT_DIR / "results.json")
     reporting.save_summary_csv(all_results, OUT_DIR / "summary.csv")
     reporting.save_attacker_optimal_csv(all_results, OUT_DIR / "attacker_optimal.csv")
+    write_standard_results(
+        [_to_standard_record(r) for r in all_results],
+        OUT_DIR / "results_standard.json",
+        experiment_name="max_savings",
+        script_path="tools/max_savings_test.py",
+    )
 
     # --- Print tables -------------------------------------------------------
     reporting.print_summary_table(all_results)

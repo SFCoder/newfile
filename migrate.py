@@ -14,6 +14,13 @@ analysis_results/adversarial_study/results.json → attack_type derived from sce
 analysis_results/sparse_replay/results.json     → attack_type="honest" (sparse masks)
 analysis_results/max_savings/results.json       → attack_type="attention_skip"
 
+standard_v1 auto-detection
+---------------------------
+Any JSON file anywhere under analysis_results/ that contains the key
+``"format": "standard_v1"`` is imported automatically without a custom
+parser.  New experiment scripts only need to call write_standard_results()
+— no migrate.py update required.
+
 Scenario → attack_type mapping for adversarial_study
 -----------------------------------------------------
   random_masks_honest  → attack_type="honest"
@@ -39,8 +46,9 @@ from typing import Optional
 _ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(_ROOT))
 
-from adversarial_suite.db.schema import DEFAULT_DB_PATH, init_db  # noqa: E402
-from adversarial_suite.db.writer import ResultsWriter               # noqa: E402
+from adversarial_suite.db.schema import DEFAULT_DB_PATH, init_db          # noqa: E402
+from adversarial_suite.db.writer import ResultsWriter                      # noqa: E402
+from adversarial_suite.db.standard_format import is_standard_format        # noqa: E402
 
 ANALYSIS_DIR = _ROOT / "analysis_results"
 
@@ -308,6 +316,122 @@ def migrate_max_savings(writer: ResultsWriter, data: list, dry_run: bool) -> int
 
 
 # ---------------------------------------------------------------------------
+# standard_v1 importer — no custom parser needed
+# ---------------------------------------------------------------------------
+
+
+def migrate_standard_v1(writer: ResultsWriter, records: list, dry_run: bool) -> int:
+    """
+    Import a list of standard_v1 result records.
+
+    Each record is a dict straight from the ``results`` array of a
+    standard_v1 file.  Required keys: model_name, prompt_text, attack_type.
+    All other keys map directly to results table columns or are folded
+    into raw_data.
+    """
+    import json as _json
+
+    n = 0
+    for rec in records:
+        model_name = rec.get("model_name", "unknown")
+        prompt_text = rec.get("prompt_text", "")
+        if not prompt_text:
+            continue
+
+        if not dry_run:
+            model_id = writer.ensure_model(
+                model_name,
+                parameter_count_b=rec.get("model_parameter_count_b"),
+                num_layers=rec.get("model_num_layers"),
+                intermediate_size=rec.get("model_intermediate_size"),
+                hidden_size=rec.get("model_hidden_size"),
+                weight_hash=rec.get("model_weight_hash"),
+            )
+            prompt_id = writer.ensure_prompt(
+                prompt_text,
+                complexity=rec.get("prompt_complexity"),
+                category=rec.get("prompt_category"),
+                token_count=rec.get("prompt_token_count"),
+            )
+
+            # attack_params: already a dict or a JSON string
+            ap = rec.get("attack_params")
+            if isinstance(ap, str):
+                try:
+                    ap = _json.loads(ap)
+                except Exception:
+                    ap = {"raw": ap}
+
+            # raw_data: same
+            rd = rec.get("raw_data")
+            if isinstance(rd, str):
+                try:
+                    rd = _json.loads(rd)
+                except Exception:
+                    rd = {"raw": rd}
+
+            pf = rec.get("pass_fail")
+            if isinstance(pf, int):
+                pf = bool(pf)
+
+            writer.add_result(
+                model_id=model_id,
+                prompt_id=prompt_id,
+                attack_type=rec.get("attack_type", "unknown"),
+                attack_params=ap,
+                layer=rec.get("layer"),
+                position=rec.get("position"),
+                token_match_rate=rec.get("token_match_rate"),
+                cosine_similarity=rec.get("cosine_similarity"),
+                rank=rec.get("rank"),
+                perplexity=rec.get("perplexity"),
+                coherence=rec.get("coherence"),
+                compression_pct=rec.get("compression_pct"),
+                savings_pct=rec.get("savings_pct"),
+                absolute_error=rec.get("absolute_error"),
+                pass_fail=pf,
+                verification_target=rec.get("verification_target", "local"),
+                raw_data=rd,
+            )
+        n += 1
+
+    return n
+
+
+def _find_standard_v1_files(analysis_dir: Path) -> list:
+    """
+    Recursively scan *analysis_dir* for JSON files that declare
+    ``"format": "standard_v1"``.
+
+    Returns a list of dicts:
+        {"path": Path, "marker": str, "data": dict}
+
+    Only the first 512 bytes of each file are read to check the format
+    key cheaply; the full file is read only for matching files.
+    """
+    import json as _json
+
+    found = []
+    for candidate in sorted(analysis_dir.rglob("*.json")):
+        try:
+            # Fast pre-check: look for the format key in the first 512 bytes
+            with open(candidate, "rb") as fh:
+                head = fh.read(512).decode("utf-8", errors="replace")
+            if "standard_v1" not in head:
+                continue
+            # Full load
+            with open(candidate, encoding="utf-8") as fh:
+                data = _json.load(fh)
+            if not is_standard_format(data):
+                continue
+            rel = candidate.relative_to(analysis_dir.parent)
+            found.append({"path": candidate, "marker": str(rel), "data": data})
+        except Exception:
+            pass
+    return found
+
+
+# ---------------------------------------------------------------------------
 # Dispatch table
 # ---------------------------------------------------------------------------
 
@@ -398,7 +522,6 @@ def main() -> None:
         notes = f"migrated_from:{marker}"
 
         if args.dry_run:
-            # Dry run: create a temporary writer that does no DB work
             class _DryWriter:
                 _model_cache: dict = {}
                 _prompt_cache: dict = {}
@@ -421,6 +544,52 @@ def main() -> None:
                 records = data if isinstance(data, list) else data.get("results", data)
                 n = mig["fn"](writer, records, False)
             print(f"  OK    {marker}  →  {n} rows written")
+            total_experiments += 1
+            total_results += n
+
+    # -----------------------------------------------------------------------
+    # Auto-detect and import any standard_v1 files in analysis_results/
+    # -----------------------------------------------------------------------
+    standard_files = _find_standard_v1_files(ANALYSIS_DIR)
+    if standard_files:
+        print()
+        print("  --- standard_v1 auto-detected files ---")
+
+    for sf in standard_files:
+        marker = sf["marker"]
+        data = sf["data"]
+        records = data.get("results", [])
+        exp_name = data.get("experiment_name") or sf["path"].parent.name
+        script_path = data.get("script_path", "")
+
+        if not args.dry_run and _already_migrated(conn, marker):
+            print(f"  SKIP  {marker}  (already imported)")
+            skipped.append(marker)
+            continue
+
+        notes = f"migrated_from:{marker}"
+
+        if args.dry_run:
+            class _DryWriter:
+                _model_cache: dict = {}
+                _prompt_cache: dict = {}
+                def ensure_model(self, name, **_): return 0
+                def ensure_prompt(self, text, **_): return 0
+                def add_result(self, **_): pass
+            n = migrate_standard_v1(_DryWriter(), records, True)
+            print(f"  DRY   {marker}  →  {n} rows would be written")
+            total_results += n
+            total_experiments += 1
+        else:
+            with ResultsWriter(
+                exp_name,
+                script_path=script_path,
+                config_name="default",
+                notes=notes,
+                db_path=db_path,
+            ) as writer:
+                n = migrate_standard_v1(writer, records, False)
+            print(f"  OK    {marker}  →  {n} rows written  [standard_v1]")
             total_experiments += 1
             total_results += n
 
