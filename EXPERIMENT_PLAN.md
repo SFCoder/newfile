@@ -1,5 +1,29 @@
 # SwiGLU Activation Fingerprinting: Experiment Plan
 
+## Dashboard
+
+Visualize all experiment results as an interactive local dashboard:
+
+```bash
+# First populate the database from existing JSON files
+python3 migrate.py
+
+# Generate and open the dashboard (no server needed)
+python3 tools/export_dashboard.py
+```
+
+The dashboard is written to `analysis_results/dashboard.html` — a fully
+self-contained HTML file with all data embedded inline.  Sections:
+
+- **Overview cards** — total experiments, models, results, prompts
+- **Attack type comparison** — canvas bar chart of avg token match rate by attack type
+- **Results explorer** — sortable, paginated table (50 rows/page) with filter
+  dropdowns for model, attack type, and complexity tier; rows are colour-coded
+  green (honest/pass), red (fraud detected), yellow (ambiguous)
+
+The file is regenerated on each run and is excluded from git (`.gitignore`)
+since it embeds the full database as inline JSON (~3 MB).
+
 ## Hypothesis
 
 The GELU/SwiGLU activation pattern at each layer of an LLM constitutes a
