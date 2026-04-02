@@ -3,4 +3,6 @@ __pycache__/
 *.pyc
 .env
 # SQLite results database — rebuilt from JSON files via migrate.py
+results.dbhardware_results_mac.json
+hardware_results_cuda.json
 results.db
