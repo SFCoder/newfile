@@ -1,0 +1,1343 @@
+{
+  "format": "standard_v1",
+  "experiment_name": "attention_split",
+  "script_path": "tools/attention_split_test.py",
+  "written_at": "2026-04-03T01:30:24Z",
+  "results": [
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "The capital of France is",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "simple",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 5.899e-05,
+      "cosine_similarity": 0.99999954,
+      "verification_target": "cross_hardware",
+      "layer": 0,
+      "attack_params": {
+        "layer": 0,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0007984638214111328,
+          "mean_abs_error": 1.1258771337452345e-05,
+          "cosine_sim": 0.9999996580719487
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0009372234344482422,
+          "mean_abs_error": 1.1651938621071167e-05,
+          "cosine_sim": 0.9999997720257189
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0007984638214111328,
+            "mean_abs": 1.1258687663939781e-05,
+            "cosine_sim": 0.9999996580719487
+          },
+          "4x7": {
+            "max_abs": 0.0007984638214111328,
+            "mean_abs": 1.1258847735007294e-05,
+            "cosine_sim": 0.9999996580719487
+          },
+          "7x4": {
+            "max_abs": 0.0007984638214111328,
+            "mean_abs": 1.1258833183092065e-05,
+            "cosine_sim": 0.9999996580719487
+          },
+          "14x2": {
+            "max_abs": 0.0007982254028320312,
+            "mean_abs": 1.1258621270826552e-05,
+            "cosine_sim": 0.9999996580719487
+          },
+          "28x1": {
+            "max_abs": 0.0007984638214111328,
+            "mean_abs": 1.1258771337452345e-05,
+            "cosine_sim": 0.9999996580719487
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0009369850158691406,
+            "mean_abs": 1.1651897693809588e-05,
+            "cosine_sim": 0.9999997720257189
+          },
+          "4x7": {
+            "max_abs": 0.0009372234344482422,
+            "mean_abs": 1.1652061402855907e-05,
+            "cosine_sim": 0.9999997720257189
+          },
+          "7x4": {
+            "max_abs": 0.0009369850158691406,
+            "mean_abs": 1.1652025932562537e-05,
+            "cosine_sim": 0.9999997720257189
+          },
+          "14x2": {
+            "max_abs": 0.0009374618530273438,
+            "mean_abs": 1.1652036846498959e-05,
+            "cosine_sim": 0.9999997720257189
+          },
+          "28x1": {
+            "max_abs": 0.0009372234344482422,
+            "mean_abs": 1.1651938621071167e-05,
+            "cosine_sim": 0.9999997720257189
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "The capital of France is",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "simple",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00022579,
+      "cosine_similarity": 0.99999864,
+      "verification_target": "cross_hardware",
+      "layer": 14,
+      "attack_params": {
+        "layer": 14,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.001674652099609375,
+          "mean_abs_error": 1.7432494132663123e-05,
+          "cosine_sim": 0.9999994898466679
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.00323486328125,
+          "mean_abs_error": 1.8452477888786234e-05,
+          "cosine_sim": 0.9999997448342924
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.001674652099609375,
+            "mean_abs": 1.74320211954182e-05,
+            "cosine_sim": 0.9999994898466679
+          },
+          "4x7": {
+            "max_abs": 0.0016736984252929688,
+            "mean_abs": 1.743188113323413e-05,
+            "cosine_sim": 0.9999994898467113
+          },
+          "7x4": {
+            "max_abs": 0.0016736984252929688,
+            "mean_abs": 1.7432157619623467e-05,
+            "cosine_sim": 0.9999995748722224
+          },
+          "14x2": {
+            "max_abs": 0.001674652099609375,
+            "mean_abs": 1.7432577806175686e-05,
+            "cosine_sim": 0.9999994898466679
+          },
+          "28x1": {
+            "max_abs": 0.001674652099609375,
+            "mean_abs": 1.7432494132663123e-05,
+            "cosine_sim": 0.9999994898466679
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0032358169555664062,
+            "mean_abs": 1.8453010852681473e-05,
+            "cosine_sim": 0.9999997448342924
+          },
+          "4x7": {
+            "max_abs": 0.00323486328125,
+            "mean_abs": 1.8452616131980903e-05,
+            "cosine_sim": 0.9999997448342924
+          },
+          "7x4": {
+            "max_abs": 0.0032358169555664062,
+            "mean_abs": 1.8452987205819227e-05,
+            "cosine_sim": 0.9999997448342924
+          },
+          "14x2": {
+            "max_abs": 0.0032358169555664062,
+            "mean_abs": 1.8452967196935788e-05,
+            "cosine_sim": 0.9999997448342924
+          },
+          "28x1": {
+            "max_abs": 0.00323486328125,
+            "mean_abs": 1.8452477888786234e-05,
+            "cosine_sim": 0.9999997448342924
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "The capital of France is",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "simple",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00140889,
+      "cosine_similarity": 1.0000003,
+      "verification_target": "cross_hardware",
+      "layer": 27,
+      "attack_params": {
+        "layer": 27,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.119140625,
+          "mean_abs_error": 0.00019244205032009631,
+          "cosine_sim": 1.000000295776985
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.112091064453125,
+          "mean_abs_error": 0.00019113060261588544,
+          "cosine_sim": 1.0
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.119171142578125,
+            "mean_abs": 0.00019244846771471202,
+            "cosine_sim": 1.0000002957769558
+          },
+          "4x7": {
+            "max_abs": 0.119140625,
+            "mean_abs": 0.0001924405078170821,
+            "cosine_sim": 1.000000295776985
+          },
+          "7x4": {
+            "max_abs": 0.119171142578125,
+            "mean_abs": 0.00019245284784119576,
+            "cosine_sim": 1.0000002957769558
+          },
+          "14x2": {
+            "max_abs": 0.119171142578125,
+            "mean_abs": 0.00019245219300501049,
+            "cosine_sim": 1.0000002957769558
+          },
+          "28x1": {
+            "max_abs": 0.119140625,
+            "mean_abs": 0.00019244205032009631,
+            "cosine_sim": 1.000000295776985
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.112091064453125,
+            "mean_abs": 0.0001911286817630753,
+            "cosine_sim": 1.0
+          },
+          "4x7": {
+            "max_abs": 0.112091064453125,
+            "mean_abs": 0.00019113266898784786,
+            "cosine_sim": 1.0
+          },
+          "7x4": {
+            "max_abs": 0.112091064453125,
+            "mean_abs": 0.00019113013695459813,
+            "cosine_sim": 1.0
+          },
+          "14x2": {
+            "max_abs": 0.112091064453125,
+            "mean_abs": 0.00019113210146315396,
+            "cosine_sim": 1.0
+          },
+          "28x1": {
+            "max_abs": 0.112091064453125,
+            "mean_abs": 0.00019113060261588544,
+            "cosine_sim": 1.0
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Water boils at 100 degrees Celsius because",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "simple",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 5.531e-05,
+      "cosine_similarity": 0.99999968,
+      "verification_target": "cross_hardware",
+      "layer": 0,
+      "attack_params": {
+        "layer": 0,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0007781982421875,
+          "mean_abs_error": 1.3865718756278511e-05,
+          "cosine_sim": 0.9999995675134108
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0009062290191650391,
+          "mean_abs_error": 1.4101574379310478e-05,
+          "cosine_sim": 0.9999999999999859
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0007781982421875,
+            "mean_abs": 1.3865906112187076e-05,
+            "cosine_sim": 0.9999994593918256
+          },
+          "4x7": {
+            "max_abs": 0.0007786750793457031,
+            "mean_abs": 1.386573330819374e-05,
+            "cosine_sim": 0.9999994593918256
+          },
+          "7x4": {
+            "max_abs": 0.0007784366607666016,
+            "mean_abs": 1.3865524124412332e-05,
+            "cosine_sim": 0.9999994593918256
+          },
+          "14x2": {
+            "max_abs": 0.0007789134979248047,
+            "mean_abs": 1.3865993423678447e-05,
+            "cosine_sim": 0.9999994593918256
+          },
+          "28x1": {
+            "max_abs": 0.0007781982421875,
+            "mean_abs": 1.3865718756278511e-05,
+            "cosine_sim": 0.9999995675134108
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0009069442749023438,
+            "mean_abs": 1.4101655324338935e-05,
+            "cosine_sim": 0.9999999999999859
+          },
+          "4x7": {
+            "max_abs": 0.0009067058563232422,
+            "mean_abs": 1.4101557098911144e-05,
+            "cosine_sim": 0.9999998918877987
+          },
+          "7x4": {
+            "max_abs": 0.0009062290191650391,
+            "mean_abs": 1.4101485248829704e-05,
+            "cosine_sim": 1.0000001081121848
+          },
+          "14x2": {
+            "max_abs": 0.0009059906005859375,
+            "mean_abs": 1.4101076885708608e-05,
+            "cosine_sim": 1.0000001081121848
+          },
+          "28x1": {
+            "max_abs": 0.0009062290191650391,
+            "mean_abs": 1.4101574379310478e-05,
+            "cosine_sim": 0.9999999999999859
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Water boils at 100 degrees Celsius because",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "simple",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00041985,
+      "cosine_similarity": 0.99999746,
+      "verification_target": "cross_hardware",
+      "layer": 14,
+      "attack_params": {
+        "layer": 14,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0011763572692871094,
+          "mean_abs_error": 2.6271878596162423e-05,
+          "cosine_sim": 0.9999999999999951
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0019731521606445312,
+          "mean_abs_error": 2.7033387596020475e-05,
+          "cosine_sim": 1.0000001493080901
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0011763572692871094,
+            "mean_abs": 2.6271611204720102e-05,
+            "cosine_sim": 0.9999999252990585
+          },
+          "4x7": {
+            "max_abs": 0.0011758804321289062,
+            "mean_abs": 2.627197500260081e-05,
+            "cosine_sim": 0.9999999999999951
+          },
+          "7x4": {
+            "max_abs": 0.0011763572692871094,
+            "mean_abs": 2.627133835630957e-05,
+            "cosine_sim": 0.9999999999999951
+          },
+          "14x2": {
+            "max_abs": 0.0011758804321289062,
+            "mean_abs": 2.6271520255249925e-05,
+            "cosine_sim": 0.9999999252990585
+          },
+          "28x1": {
+            "max_abs": 0.0011763572692871094,
+            "mean_abs": 2.6271878596162423e-05,
+            "cosine_sim": 0.9999999999999951
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0019731521606445312,
+            "mean_abs": 2.7033760488848202e-05,
+            "cosine_sim": 1.0000001493080901
+          },
+          "4x7": {
+            "max_abs": 0.0019731521606445312,
+            "mean_abs": 2.7033393052988686e-05,
+            "cosine_sim": 1.0000000746540372
+          },
+          "7x4": {
+            "max_abs": 0.0019731521606445312,
+            "mean_abs": 2.703356949496083e-05,
+            "cosine_sim": 1.0000002239621544
+          },
+          "14x2": {
+            "max_abs": 0.0019731521606445312,
+            "mean_abs": 2.7033265723730437e-05,
+            "cosine_sim": 1.0000000746540372
+          },
+          "28x1": {
+            "max_abs": 0.0019731521606445312,
+            "mean_abs": 2.7033387596020475e-05,
+            "cosine_sim": 1.0000001493080901
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Water boils at 100 degrees Celsius because",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "simple",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00944325,
+      "cosine_similarity": 0.99999529,
+      "verification_target": "cross_hardware",
+      "layer": 27,
+      "attack_params": {
+        "layer": 27,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.039154052734375,
+          "mean_abs_error": 0.00021912946249358356,
+          "cosine_sim": 0.999999901837629
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0276641845703125,
+          "mean_abs_error": 0.00021902156004216522,
+          "cosine_sim": 0.9999996085137302
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0391693115234375,
+            "mean_abs": 0.00021913318778388202,
+            "cosine_sim": 1.0
+          },
+          "4x7": {
+            "max_abs": 0.039154052734375,
+            "mean_abs": 0.00021912416559644043,
+            "cosine_sim": 1.0
+          },
+          "7x4": {
+            "max_abs": 0.0391693115234375,
+            "mean_abs": 0.00021913301316089928,
+            "cosine_sim": 1.0
+          },
+          "14x2": {
+            "max_abs": 0.039154052734375,
+            "mean_abs": 0.00021912432566750795,
+            "cosine_sim": 1.0
+          },
+          "28x1": {
+            "max_abs": 0.039154052734375,
+            "mean_abs": 0.00021912946249358356,
+            "cosine_sim": 0.999999901837629
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.02765655517578125,
+            "mean_abs": 0.00021902167645748705,
+            "cosine_sim": 0.9999996085137302
+          },
+          "4x7": {
+            "max_abs": 0.02765655517578125,
+            "mean_abs": 0.0002190243249060586,
+            "cosine_sim": 0.9999996085137302
+          },
+          "7x4": {
+            "max_abs": 0.02764892578125,
+            "mean_abs": 0.00021901480795349926,
+            "cosine_sim": 0.9999996085136919
+          },
+          "14x2": {
+            "max_abs": 0.02764892578125,
+            "mean_abs": 0.0002190225204685703,
+            "cosine_sim": 0.9999996085137302
+          },
+          "28x1": {
+            "max_abs": 0.0276641845703125,
+            "mean_abs": 0.00021902156004216522,
+            "cosine_sim": 0.9999996085137302
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Explain how a neural network learns",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "moderate",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 7.122e-05,
+      "cosine_similarity": 0.99999955,
+      "verification_target": "cross_hardware",
+      "layer": 0,
+      "attack_params": {
+        "layer": 0,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0009577274322509766,
+          "mean_abs_error": 1.6948803022387438e-05,
+          "cosine_sim": 0.9999997298140598
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0008859634399414062,
+          "mean_abs_error": 1.7067415683413856e-05,
+          "cosine_sim": 0.9999999999999882
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0009577274322509766,
+            "mean_abs": 1.694879938440863e-05,
+            "cosine_sim": 0.9999998198760359
+          },
+          "4x7": {
+            "max_abs": 0.000957489013671875,
+            "mean_abs": 1.6948873962974176e-05,
+            "cosine_sim": 0.9999998198760359
+          },
+          "7x4": {
+            "max_abs": 0.000957489013671875,
+            "mean_abs": 1.694872662483249e-05,
+            "cosine_sim": 0.9999997298140841
+          },
+          "14x2": {
+            "max_abs": 0.000957489013671875,
+            "mean_abs": 1.6948344637057744e-05,
+            "cosine_sim": 0.9999998198760359
+          },
+          "28x1": {
+            "max_abs": 0.0009577274322509766,
+            "mean_abs": 1.6948803022387438e-05,
+            "cosine_sim": 0.9999997298140598
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0008859634399414062,
+            "mean_abs": 1.7067339285858907e-05,
+            "cosine_sim": 0.9999999999999882
+          },
+          "4x7": {
+            "max_abs": 0.0008857250213623047,
+            "mean_abs": 1.7067508451873437e-05,
+            "cosine_sim": 0.9999999099259167
+          },
+          "7x4": {
+            "max_abs": 0.0008857250213623047,
+            "mean_abs": 1.706752118479926e-05,
+            "cosine_sim": 0.9999999999999882
+          },
+          "14x2": {
+            "max_abs": 0.0008857250213623047,
+            "mean_abs": 1.7067513908841647e-05,
+            "cosine_sim": 0.9999999999999882
+          },
+          "28x1": {
+            "max_abs": 0.0008859634399414062,
+            "mean_abs": 1.7067415683413856e-05,
+            "cosine_sim": 0.9999999999999882
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Explain how a neural network learns",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "moderate",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00025072,
+      "cosine_similarity": 0.99999833,
+      "verification_target": "cross_hardware",
+      "layer": 14,
+      "attack_params": {
+        "layer": 14,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0021772384643554688,
+          "mean_abs_error": 2.059314283542335e-05,
+          "cosine_sim": 0.9999999206189574
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.001407623291015625,
+          "mean_abs_error": 2.0164525267318822e-05,
+          "cosine_sim": 0.9999998408254612
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0021772384643554688,
+            "mean_abs": 2.0593284716596827e-05,
+            "cosine_sim": 0.9999999206189574
+          },
+          "4x7": {
+            "max_abs": 0.0021772384643554688,
+            "mean_abs": 2.059331200143788e-05,
+            "cosine_sim": 0.9999999999999948
+          },
+          "7x4": {
+            "max_abs": 0.0021772384643554688,
+            "mean_abs": 2.059330108750146e-05,
+            "cosine_sim": 1.0000001587620824
+          },
+          "14x2": {
+            "max_abs": 0.0021772384643554688,
+            "mean_abs": 2.059334838122595e-05,
+            "cosine_sim": 1.0000001587620824
+          },
+          "28x1": {
+            "max_abs": 0.0021772384643554688,
+            "mean_abs": 2.059314283542335e-05,
+            "cosine_sim": 0.9999999206189574
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.001407623291015625,
+            "mean_abs": 2.0164437955827452e-05,
+            "cosine_sim": 0.9999998408254612
+          },
+          "4x7": {
+            "max_abs": 0.001407623291015625,
+            "mean_abs": 2.0164530724287033e-05,
+            "cosine_sim": 0.9999998408254612
+          },
+          "7x4": {
+            "max_abs": 0.0014085769653320312,
+            "mean_abs": 2.016485268541146e-05,
+            "cosine_sim": 0.9999998408254612
+          },
+          "14x2": {
+            "max_abs": 0.0014085769653320312,
+            "mean_abs": 2.016477992583532e-05,
+            "cosine_sim": 0.9999998408254612
+          },
+          "28x1": {
+            "max_abs": 0.001407623291015625,
+            "mean_abs": 2.0164525267318822e-05,
+            "cosine_sim": 0.9999998408254612
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Explain how a neural network learns",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "moderate",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00207471,
+      "cosine_similarity": 0.99999983,
+      "verification_target": "cross_hardware",
+      "layer": 27,
+      "attack_params": {
+        "layer": 27,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.054779052734375,
+          "mean_abs_error": 0.00015424216690007597,
+          "cosine_sim": 1.0000006114467905
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.04437255859375,
+          "mean_abs_error": 0.00015852393698878586,
+          "cosine_sim": 1.0
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.054779052734375,
+            "mean_abs": 0.00015424312732648104,
+            "cosine_sim": 1.0000006114467905
+          },
+          "4x7": {
+            "max_abs": 0.0547637939453125,
+            "mean_abs": 0.0001542378740850836,
+            "cosine_sim": 1.000000611446844
+          },
+          "7x4": {
+            "max_abs": 0.0547637939453125,
+            "mean_abs": 0.00015424072626046836,
+            "cosine_sim": 1.000000611446844
+          },
+          "14x2": {
+            "max_abs": 0.0547943115234375,
+            "mean_abs": 0.0001542506943223998,
+            "cosine_sim": 1.0000006114467372
+          },
+          "28x1": {
+            "max_abs": 0.054779052734375,
+            "mean_abs": 0.00015424216690007597,
+            "cosine_sim": 1.0000006114467905
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.04437255859375,
+            "mean_abs": 0.00015852357319090515,
+            "cosine_sim": 1.0
+          },
+          "4x7": {
+            "max_abs": 0.04437255859375,
+            "mean_abs": 0.0001585222635185346,
+            "cosine_sim": 1.0
+          },
+          "7x4": {
+            "max_abs": 0.044342041015625,
+            "mean_abs": 0.00015851750504225492,
+            "cosine_sim": 1.0
+          },
+          "14x2": {
+            "max_abs": 0.04437255859375,
+            "mean_abs": 0.00015852440265007317,
+            "cosine_sim": 1.0
+          },
+          "28x1": {
+            "max_abs": 0.04437255859375,
+            "mean_abs": 0.00015852393698878586,
+            "cosine_sim": 1.0
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Alice is taller than Bob. Bob is taller than Carol. Who is shortest?",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "moderate",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 4.242e-05,
+      "cosine_similarity": 0.99999964,
+      "verification_target": "cross_hardware",
+      "layer": 0,
+      "attack_params": {
+        "layer": 0,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0008029937744140625,
+          "mean_abs_error": 1.275284739676863e-05,
+          "cosine_sim": 0.9999996448335862
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0009665489196777344,
+          "mean_abs_error": 1.2723850886686705e-05,
+          "cosine_sim": 1.0000001183883076
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0008027553558349609,
+            "mean_abs": 1.2752630937029608e-05,
+            "cosine_sim": 0.9999996448335862
+          },
+          "4x7": {
+            "max_abs": 0.0008027553558349609,
+            "mean_abs": 1.2752507245750166e-05,
+            "cosine_sim": 0.9999995264447866
+          },
+          "7x4": {
+            "max_abs": 0.0008029937744140625,
+            "mean_abs": 1.2752608199662063e-05,
+            "cosine_sim": 0.9999996448335862
+          },
+          "14x2": {
+            "max_abs": 0.0008029937744140625,
+            "mean_abs": 1.2752685506711714e-05,
+            "cosine_sim": 0.9999996448335862
+          },
+          "28x1": {
+            "max_abs": 0.0008029937744140625,
+            "mean_abs": 1.275284739676863e-05,
+            "cosine_sim": 0.9999996448335862
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0009665489196777344,
+            "mean_abs": 1.2723938198178075e-05,
+            "cosine_sim": 1.0000001183883076
+          },
+          "4x7": {
+            "max_abs": 0.0009663105010986328,
+            "mean_abs": 1.272388908546418e-05,
+            "cosine_sim": 1.0000001183883076
+          },
+          "7x4": {
+            "max_abs": 0.0009663105010986328,
+            "mean_abs": 1.2723768122668844e-05,
+            "cosine_sim": 1.0000001183883076
+          },
+          "14x2": {
+            "max_abs": 0.0009663105010986328,
+            "mean_abs": 1.272343251912389e-05,
+            "cosine_sim": 1.0000001183883076
+          },
+          "28x1": {
+            "max_abs": 0.0009665489196777344,
+            "mean_abs": 1.2723850886686705e-05,
+            "cosine_sim": 1.0000001183883076
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Alice is taller than Bob. Bob is taller than Carol. Who is shortest?",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "moderate",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00030039,
+      "cosine_similarity": 0.99999772,
+      "verification_target": "cross_hardware",
+      "layer": 14,
+      "attack_params": {
+        "layer": 14,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0017824172973632812,
+          "mean_abs_error": 2.5463417841820046e-05,
+          "cosine_sim": 0.9999995043188141
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0008378028869628906,
+          "mean_abs_error": 2.4973936888272874e-05,
+          "cosine_sim": 0.9999998016961065
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0017824172973632812,
+            "mean_abs": 2.5463012207183056e-05,
+            "cosine_sim": 0.9999995043188141
+          },
+          "4x7": {
+            "max_abs": 0.0017824172973632812,
+            "mean_abs": 2.546328687458299e-05,
+            "cosine_sim": 0.9999996034550107
+          },
+          "7x4": {
+            "max_abs": 0.0017824172973632812,
+            "mean_abs": 2.5463335987296887e-05,
+            "cosine_sim": 0.9999996034550107
+          },
+          "14x2": {
+            "max_abs": 0.0017833709716796875,
+            "mean_abs": 2.5463747078902088e-05,
+            "cosine_sim": 0.9999995043188141
+          },
+          "28x1": {
+            "max_abs": 0.0017824172973632812,
+            "mean_abs": 2.5463417841820046e-05,
+            "cosine_sim": 0.9999995043188141
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0008378028869628906,
+            "mean_abs": 2.4973491235869005e-05,
+            "cosine_sim": 0.9999998016961065
+          },
+          "4x7": {
+            "max_abs": 0.0008378028869628906,
+            "mean_abs": 2.497340210538823e-05,
+            "cosine_sim": 0.9999998016961065
+          },
+          "7x4": {
+            "max_abs": 0.0008378028869628906,
+            "mean_abs": 2.497331479389686e-05,
+            "cosine_sim": 0.9999998016961065
+          },
+          "14x2": {
+            "max_abs": 0.0008378028869628906,
+            "mean_abs": 2.497357127140276e-05,
+            "cosine_sim": 0.9999998016961065
+          },
+          "28x1": {
+            "max_abs": 0.0008378028869628906,
+            "mean_abs": 2.4973936888272874e-05,
+            "cosine_sim": 0.9999998016961065
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Alice is taller than Bob. Bob is taller than Carol. Who is shortest?",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "moderate",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00257108,
+      "cosine_similarity": 0.99999964,
+      "verification_target": "cross_hardware",
+      "layer": 27,
+      "attack_params": {
+        "layer": 27,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.02710723876953125,
+          "mean_abs_error": 0.00021401151025202125,
+          "cosine_sim": 0.9999996372737824
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0074310302734375,
+          "mean_abs_error": 0.00020264725026208907,
+          "cosine_sim": 0.9999998186547501
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.02710723876953125,
+            "mean_abs": 0.00021400678087957203,
+            "cosine_sim": 0.9999997279553121
+          },
+          "4x7": {
+            "max_abs": 0.02710723876953125,
+            "mean_abs": 0.00021400480181910098,
+            "cosine_sim": 0.9999997279553368
+          },
+          "7x4": {
+            "max_abs": 0.02709197998046875,
+            "mean_abs": 0.00021400119294412434,
+            "cosine_sim": 0.9999998186368583
+          },
+          "14x2": {
+            "max_abs": 0.027099609375,
+            "mean_abs": 0.00021401197591330856,
+            "cosine_sim": 0.9999997279552875
+          },
+          "28x1": {
+            "max_abs": 0.02710723876953125,
+            "mean_abs": 0.00021401151025202125,
+            "cosine_sim": 0.9999996372737824
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.007415771484375,
+            "mean_abs": 0.00020264243357814848,
+            "cosine_sim": 0.9999998186547665
+          },
+          "4x7": {
+            "max_abs": 0.007415771484375,
+            "mean_abs": 0.0002026468573603779,
+            "cosine_sim": 0.9999998186547665
+          },
+          "7x4": {
+            "max_abs": 0.0074005126953125,
+            "mean_abs": 0.0002026392612606287,
+            "cosine_sim": 0.9999999093273833
+          },
+          "14x2": {
+            "max_abs": 0.0074005126953125,
+            "mean_abs": 0.00020264119666535407,
+            "cosine_sim": 0.9999999093273833
+          },
+          "28x1": {
+            "max_abs": 0.0074310302734375,
+            "mean_abs": 0.00020264725026208907,
+            "cosine_sim": 0.9999998186547501
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Derive the formula for the sum of a geometric series step by step",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "complex",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 4.613e-05,
+      "cosine_similarity": 0.9999994,
+      "verification_target": "cross_hardware",
+      "layer": 0,
+      "attack_params": {
+        "layer": 0,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0008640289306640625,
+          "mean_abs_error": 1.5907309716567397e-05,
+          "cosine_sim": 0.9999994861394574
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0009551048278808594,
+          "mean_abs_error": 1.581983633514028e-05,
+          "cosine_sim": 0.9999998286926052
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0008637905120849609,
+            "mean_abs": 1.590709507581778e-05,
+            "cosine_sim": 0.9999994861394574
+          },
+          "4x7": {
+            "max_abs": 0.0008640289306640625,
+            "mean_abs": 1.5906876797089353e-05,
+            "cosine_sim": 0.9999994861394574
+          },
+          "7x4": {
+            "max_abs": 0.0008637905120849609,
+            "mean_abs": 1.590728606970515e-05,
+            "cosine_sim": 0.9999994861394574
+          },
+          "14x2": {
+            "max_abs": 0.0008637905120849609,
+            "mean_abs": 1.5907558918115683e-05,
+            "cosine_sim": 0.9999994861394574
+          },
+          "28x1": {
+            "max_abs": 0.0008640289306640625,
+            "mean_abs": 1.5907309716567397e-05,
+            "cosine_sim": 0.9999994861394574
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.0009551048278808594,
+            "mean_abs": 1.581985634402372e-05,
+            "cosine_sim": 0.9999996573852508
+          },
+          "4x7": {
+            "max_abs": 0.0009546279907226562,
+            "mean_abs": 1.5819527106941678e-05,
+            "cosine_sim": 0.9999998286926052
+          },
+          "7x4": {
+            "max_abs": 0.0009551048278808594,
+            "mean_abs": 1.5819685359019786e-05,
+            "cosine_sim": 0.9999997430389133
+          },
+          "14x2": {
+            "max_abs": 0.0009548664093017578,
+            "mean_abs": 1.5819632608327083e-05,
+            "cosine_sim": 0.9999997430389354
+          },
+          "28x1": {
+            "max_abs": 0.0009551048278808594,
+            "mean_abs": 1.581983633514028e-05,
+            "cosine_sim": 0.9999998286926052
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Derive the formula for the sum of a geometric series step by step",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "complex",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00024056,
+      "cosine_similarity": 0.99999832,
+      "verification_target": "cross_hardware",
+      "layer": 14,
+      "attack_params": {
+        "layer": 14,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0017781257629394531,
+          "mean_abs_error": 2.22004182433011e-05,
+          "cosine_sim": 0.9999999999999939
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.001209259033203125,
+          "mean_abs_error": 2.202473478973843e-05,
+          "cosine_sim": 0.9999997203516275
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0017781257629394531,
+            "mean_abs": 2.220081296400167e-05,
+            "cosine_sim": 0.9999999999999939
+          },
+          "4x7": {
+            "max_abs": 0.0017781257629394531,
+            "mean_abs": 2.2200403691385873e-05,
+            "cosine_sim": 0.9999999068891793
+          },
+          "7x4": {
+            "max_abs": 0.0017781257629394531,
+            "mean_abs": 2.2200960302143358e-05,
+            "cosine_sim": 0.9999999068891793
+          },
+          "14x2": {
+            "max_abs": 0.0017781257629394531,
+            "mean_abs": 2.2200949388206936e-05,
+            "cosine_sim": 0.9999999999999939
+          },
+          "28x1": {
+            "max_abs": 0.0017781257629394531,
+            "mean_abs": 2.22004182433011e-05,
+            "cosine_sim": 0.9999999999999939
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.001209259033203125,
+            "mean_abs": 2.2025020371074788e-05,
+            "cosine_sim": 0.9999997203516275
+          },
+          "4x7": {
+            "max_abs": 0.001209259033203125,
+            "mean_abs": 2.20252313738456e-05,
+            "cosine_sim": 0.9999997203516275
+          },
+          "7x4": {
+            "max_abs": 0.001209259033203125,
+            "mean_abs": 2.2025158614269458e-05,
+            "cosine_sim": 0.9999997203516275
+          },
+          "14x2": {
+            "max_abs": 0.001209259033203125,
+            "mean_abs": 2.2024778445484117e-05,
+            "cosine_sim": 0.9999998135677323
+          },
+          "28x1": {
+            "max_abs": 0.001209259033203125,
+            "mean_abs": 2.202473478973843e-05,
+            "cosine_sim": 0.9999997203516275
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    },
+    {
+      "model_name": "Qwen/Qwen2.5-7B",
+      "prompt_text": "Derive the formula for the sum of a geometric series step by step",
+      "attack_type": "attention_split",
+      "model_hidden_size": 3584,
+      "model_num_layers": 28,
+      "prompt_complexity": "complex",
+      "token_match_rate": 1.0,
+      "pass_fail": true,
+      "absolute_error": 0.00187501,
+      "cosine_similarity": 1.0000001,
+      "verification_target": "cross_hardware",
+      "layer": 27,
+      "attack_params": {
+        "layer": 27,
+        "hardware_a": "mps",
+        "hardware_b": "cuda",
+        "hostname_a": "Mac.lan",
+        "hostname_b": "832ec171ed9f"
+      },
+      "raw_data": {
+        "decomp_check_a": {
+          "max_abs_error": 0.0072021484375,
+          "mean_abs_error": 0.000169089762493968,
+          "cosine_sim": 0.9999997976128435
+        },
+        "decomp_check_b": {
+          "max_abs_error": 0.0202789306640625,
+          "mean_abs_error": 0.0001728628558339551,
+          "cosine_sim": 1.0000005059869899
+        },
+        "split_errors_a": {
+          "2x14": {
+            "max_abs": 0.0072021484375,
+            "mean_abs": 0.00016908942779991776,
+            "cosine_sim": 0.9999997976128435
+          },
+          "4x7": {
+            "max_abs": 0.0072002410888671875,
+            "mean_abs": 0.00016908480029087514,
+            "cosine_sim": 0.9999997976128435
+          },
+          "7x4": {
+            "max_abs": 0.0072021484375,
+            "mean_abs": 0.00016909335681702942,
+            "cosine_sim": 0.999999898806432
+          },
+          "14x2": {
+            "max_abs": 0.0072002410888671875,
+            "mean_abs": 0.00016908928228076547,
+            "cosine_sim": 0.9999997976128435
+          },
+          "28x1": {
+            "max_abs": 0.0072021484375,
+            "mean_abs": 0.000169089762493968,
+            "cosine_sim": 0.9999997976128435
+          }
+        },
+        "split_errors_b": {
+          "2x14": {
+            "max_abs": 0.020263671875,
+            "mean_abs": 0.0001728603820083663,
+            "cosine_sim": 1.0000004047895918
+          },
+          "4x7": {
+            "max_abs": 0.020263671875,
+            "mean_abs": 0.00017286125512328,
+            "cosine_sim": 1.0000004047895918
+          },
+          "7x4": {
+            "max_abs": 0.0202484130859375,
+            "mean_abs": 0.0001728573552099988,
+            "cosine_sim": 1.0000004047895918
+          },
+          "14x2": {
+            "max_abs": 0.0202789306640625,
+            "mean_abs": 0.00017286244838032871,
+            "cosine_sim": 1.0000005059869899
+          },
+          "28x1": {
+            "max_abs": 0.0202789306640625,
+            "mean_abs": 0.0001728628558339551,
+            "cosine_sim": 1.0000005059869899
+          }
+        },
+        "model_num_heads": 28,
+        "model_head_dim": 128
+      }
+    }
+  ]
+}
