@@ -1,0 +1,61 @@
+======================================================================
+ATTENTION SPLIT CROSS-HARDWARE COMPARISON
+======================================================================
+File A:  /workspace/newfile/attn_split_mac.json
+  Model:    Qwen/Qwen2.5-7B
+  Hardware: mps / Apple Silicon MPS @ Mac.lan
+  Captured: 2026-04-03T01:18:53.217483+00:00
+
+File B:  /workspace/newfile/attn_split_cuda.json
+  Model:    Qwen/Qwen2.5-7B
+  Hardware: cuda / NVIDIA GeForce RTX 5090 @ 832ec171ed9f
+  Captured: 2026-04-03T01:29:22.055493+00:00
+
+Architecture match: True
+Prompts compared:   5
+Token match rate:   100.0%  (5/5 matching predicted tokens)
+
+PER-LAYER FULL ATTENTION OUTPUT SIMILARITY
+--------------------------------------------------
+  Layer  0: cos_sim=0.99999956  mean_abs_diff=5.4816e-05  (min_cos=0.99999940  max_cos=0.99999968)
+  Layer 14: cos_sim=0.99999809  mean_abs_diff=2.8746e-04  (min_cos=0.99999746  max_cos=0.99999864)
+  Layer 27: cos_sim=0.99999903  mean_abs_diff=3.4746e-03  (min_cos=0.99999529  max_cos=1.00000030)
+
+PER-HEAD COSINE SIMILARITY (mean across prompts)
+--------------------------------------------------
+  Layer  0: mean_head_cos=0.99999956  min=0.99999803  max=0.99999997
+           least consistent: head 10 (cos=0.99999803)  most consistent: head 15 (cos=0.99999997)
+  Layer 14: mean_head_cos=0.99999821  min=0.99999543  max=1.00000008
+           least consistent: head 11 (cos=0.99999543)  most consistent: head 7 (cos=1.00000008)
+  Layer 27: mean_head_cos=0.99998730  min=0.99996560  max=0.99999912
+           least consistent: head 18 (cos=0.99996560)  most consistent: head 8 (cos=0.99999912)
+
+SPLIT GROUPING DECOMPOSITION ERRORS (mean across prompts)
+--------------------------------------------------
+  Layer 0:
+    14x2: A max_abs=8.40e-04 cos=0.99999961 | B max_abs=9.30e-04 cos=0.99999995
+    28x1: A max_abs=8.40e-04 cos=0.99999962 | B max_abs=9.30e-04 cos=0.99999994
+    2x14: A max_abs=8.40e-04 cos=0.99999961 | B max_abs=9.30e-04 cos=0.99999991
+    4x7: A max_abs=8.40e-04 cos=0.99999959 | B max_abs=9.30e-04 cos=0.99999990
+    7x4: A max_abs=8.40e-04 cos=0.99999960 | B max_abs=9.30e-04 cos=0.99999995
+  Layer 14:
+    14x2: A max_abs=1.72e-03 cos=0.99999982 | B max_abs=1.73e-03 cos=0.99999986
+    28x1: A max_abs=1.72e-03 cos=0.99999978 | B max_abs=1.73e-03 cos=0.99999985
+    2x14: A max_abs=1.72e-03 cos=0.99999977 | B max_abs=1.73e-03 cos=0.99999985
+    4x7: A max_abs=1.72e-03 cos=0.99999980 | B max_abs=1.73e-03 cos=0.99999984
+    7x4: A max_abs=1.72e-03 cos=0.99999985 | B max_abs=1.73e-03 cos=0.99999987
+  Layer 27:
+    14x2: A max_abs=4.95e-02 cos=1.00000009 | B max_abs=4.24e-02 cos=1.00000000
+    28x1: A max_abs=4.95e-02 cos=1.00000005 | B max_abs=4.24e-02 cos=0.99999999
+    2x14: A max_abs=4.95e-02 cos=1.00000009 | B max_abs=4.24e-02 cos=0.99999997
+    4x7: A max_abs=4.95e-02 cos=1.00000009 | B max_abs=4.24e-02 cos=0.99999997
+    7x4: A max_abs=4.95e-02 cos=1.00000012 | B max_abs=4.23e-02 cos=0.99999998
+
+FEASIBILITY ASSESSMENT
+--------------------------------------------------
+  Overall mean cosine similarity: 0.99999890
+  Assessment: EXCELLENT — outputs are effectively identical across hardware
+  Token match rate: 100.0%
+  Predicted tokens: IDENTICAL across hardware
+
+======================================================================
