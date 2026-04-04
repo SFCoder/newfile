@@ -1,0 +1,2576 @@
+{
+  "experiment": "gate_value_distribution_v2",
+  "model": "Qwen2.5-72B",
+  "quantization": "nf4",
+  "prompt_id": "simple_factual_04",
+  "prompt_category": "simple_factual",
+  "prompt_text": "Define the word 'entropy'.",
+  "activity_threshold": 0.05,
+  "total_neurons": 29568,
+  "num_layers": 80,
+  "total_tokens_processed": 16,
+  "prompt_tokens": 6,
+  "generated_tokens": 10,
+  "layers": [
+    {
+      "layer": 0,
+      "per_inference_inactive_count": 20572,
+      "per_inference_active_count": 8996,
+      "inactive_max_gate_stats": {
+        "min": 0.002777099609375,
+        "max": 0.0498046875,
+        "mean": 0.02170606143772602,
+        "median": 0.0167236328125,
+        "std": 0.012808193452656269
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 0.93359375,
+        "mean": 0.07600945234298706,
+        "median": 0.0673828125
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 63,
+        "0.005_to_0.010": 3255,
+        "0.010_to_0.020": 8826,
+        "0.020_to_0.050": 8428
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 63,
+        "below_0.010": 3318,
+        "below_0.020": 12144
+      }
+    },
+    {
+      "layer": 1,
+      "per_inference_inactive_count": 11428,
+      "per_inference_active_count": 18140,
+      "inactive_max_gate_stats": {
+        "min": 8.487701416015625e-05,
+        "max": 0.0498046875,
+        "mean": 0.024521755054593086,
+        "median": 0.0213623046875,
+        "std": 0.012909475713968277
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 46.25,
+        "mean": 0.1099955290555954,
+        "median": 0.083984375
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 2,
+        "0.001_to_0.005": 47,
+        "0.005_to_0.010": 1203,
+        "0.010_to_0.020": 4076,
+        "0.020_to_0.050": 6100
+      },
+      "encoding_capacity": {
+        "below_0.001": 2,
+        "below_0.005": 49,
+        "below_0.010": 1252,
+        "below_0.020": 5328
+      }
+    },
+    {
+      "layer": 2,
+      "per_inference_inactive_count": 7048,
+      "per_inference_active_count": 22520,
+      "inactive_max_gate_stats": {
+        "min": 0.0004634857177734375,
+        "max": 0.0498046875,
+        "mean": 0.03422672301530838,
+        "median": 0.0361328125,
+        "std": 0.011171897873282433
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.5234375,
+        "mean": 0.08815684169530869,
+        "median": 0.07861328125
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 1,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 54,
+        "0.010_to_0.020": 968,
+        "0.020_to_0.050": 6025
+      },
+      "encoding_capacity": {
+        "below_0.001": 1,
+        "below_0.005": 1,
+        "below_0.010": 55,
+        "below_0.020": 1023
+      }
+    },
+    {
+      "layer": 3,
+      "per_inference_inactive_count": 2660,
+      "per_inference_active_count": 26908,
+      "inactive_max_gate_stats": {
+        "min": 0.017333984375,
+        "max": 0.0498046875,
+        "mean": 0.04297664389014244,
+        "median": 0.044189453125,
+        "std": 0.0055257477797567844
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 0.91015625,
+        "mean": 0.09344711154699326,
+        "median": 0.0830078125
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 3,
+        "0.020_to_0.050": 2657
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 3
+      }
+    },
+    {
+      "layer": 4,
+      "per_inference_inactive_count": 915,
+      "per_inference_active_count": 28653,
+      "inactive_max_gate_stats": {
+        "min": 0.0252685546875,
+        "max": 0.0498046875,
+        "mean": 0.04430551826953888,
+        "median": 0.045654296875,
+        "std": 0.004633502569049597
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.0234375,
+        "mean": 0.09963378310203552,
+        "median": 0.09033203125
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 915
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 5,
+      "per_inference_inactive_count": 704,
+      "per_inference_active_count": 28864,
+      "inactive_max_gate_stats": {
+        "min": 0.0233154296875,
+        "max": 0.0498046875,
+        "mean": 0.04461340606212616,
+        "median": 0.0457763671875,
+        "std": 0.004652849398553371
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.0703125,
+        "mean": 0.09938951581716537,
+        "median": 0.09228515625
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 704
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 6,
+      "per_inference_inactive_count": 533,
+      "per_inference_active_count": 29035,
+      "inactive_max_gate_stats": {
+        "min": 0.02685546875,
+        "max": 0.0498046875,
+        "mean": 0.04438847675919533,
+        "median": 0.045654296875,
+        "std": 0.004488552454859018
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.7109375,
+        "mean": 0.10399748384952545,
+        "median": 0.09619140625
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 533
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 7,
+      "per_inference_inactive_count": 251,
+      "per_inference_active_count": 29317,
+      "inactive_max_gate_stats": {
+        "min": 0.02880859375,
+        "max": 0.0498046875,
+        "mean": 0.04541696608066559,
+        "median": 0.04638671875,
+        "std": 0.0040228948928415775
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.21875,
+        "mean": 0.11815501749515533,
+        "median": 0.10791015625
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 251
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 8,
+      "per_inference_inactive_count": 104,
+      "per_inference_active_count": 29464,
+      "inactive_max_gate_stats": {
+        "min": 0.0274658203125,
+        "max": 0.0498046875,
+        "mean": 0.044521626085042953,
+        "median": 0.045654296875,
+        "std": 0.004671772476285696
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 2.0,
+        "mean": 0.1292649507522583,
+        "median": 0.11767578125
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 104
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 9,
+      "per_inference_inactive_count": 70,
+      "per_inference_active_count": 29498,
+      "inactive_max_gate_stats": {
+        "min": 0.0322265625,
+        "max": 0.049560546875,
+        "mean": 0.04543108120560646,
+        "median": 0.0465087890625,
+        "std": 0.0036396589130163193
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 2.0625,
+        "mean": 0.13195842504501343,
+        "median": 0.12109375
+      },
+      "gap": 0.00048828125,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 70
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 10,
+      "per_inference_inactive_count": 42,
+      "per_inference_active_count": 29526,
+      "inactive_max_gate_stats": {
+        "min": 0.025390625,
+        "max": 0.0498046875,
+        "mean": 0.0442475825548172,
+        "median": 0.045654296875,
+        "std": 0.004935083910822868
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.15625,
+        "mean": 0.14287646114826202,
+        "median": 0.1318359375
+      },
+      "gap": 0.000244140625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 42
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 11,
+      "per_inference_inactive_count": 17,
+      "per_inference_active_count": 29551,
+      "inactive_max_gate_stats": {
+        "min": 0.03515625,
+        "max": 0.049560546875,
+        "mean": 0.04522345960140228,
+        "median": 0.046875,
+        "std": 0.003984919749200344
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 1.8125,
+        "mean": 0.15194612741470337,
+        "median": 0.138671875
+      },
+      "gap": 0.00048828125,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 17
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 12,
+      "per_inference_inactive_count": 8,
+      "per_inference_active_count": 29560,
+      "inactive_max_gate_stats": {
+        "min": 0.043701171875,
+        "max": 0.049560546875,
+        "mean": 0.04693603515625,
+        "median": 0.0465087890625,
+        "std": 0.001901908777654171
+      },
+      "active_max_gate_stats": {
+        "min": 0.050048828125,
+        "max": 2.484375,
+        "mean": 0.16420310735702515,
+        "median": 0.150390625
+      },
+      "gap": 0.00048828125,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 8
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 13,
+      "per_inference_inactive_count": 3,
+      "per_inference_active_count": 29565,
+      "inactive_max_gate_stats": {
+        "min": 0.048828125,
+        "max": 0.049072265625,
+        "mean": 0.0489095039665699,
+        "median": 0.048828125,
+        "std": 0.00011508898751344532
+      },
+      "active_max_gate_stats": {
+        "min": 0.051025390625,
+        "max": 4.78125,
+        "mean": 0.1753268539905548,
+        "median": 0.16015625
+      },
+      "gap": 0.001953125,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 3
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 14,
+      "per_inference_inactive_count": 2,
+      "per_inference_active_count": 29566,
+      "inactive_max_gate_stats": {
+        "min": 0.04541015625,
+        "max": 0.045654296875,
+        "mean": 0.0455322265625,
+        "median": 0.0455322265625,
+        "std": 0.0001220703125
+      },
+      "active_max_gate_stats": {
+        "min": 0.05029296875,
+        "max": 2.40625,
+        "mean": 0.18026599287986755,
+        "median": 0.1640625
+      },
+      "gap": 0.004638671875,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 2
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 15,
+      "per_inference_inactive_count": 3,
+      "per_inference_active_count": 29565,
+      "inactive_max_gate_stats": {
+        "min": 0.041259765625,
+        "max": 0.048828125,
+        "mean": 0.0462239570915699,
+        "median": 0.048583984375,
+        "std": 0.003511629067361355
+      },
+      "active_max_gate_stats": {
+        "min": 0.05029296875,
+        "max": 1.671875,
+        "mean": 0.19029958546161652,
+        "median": 0.173828125
+      },
+      "gap": 0.00146484375,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 3
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 16,
+      "per_inference_inactive_count": 1,
+      "per_inference_active_count": 29567,
+      "inactive_max_gate_stats": {
+        "min": 0.04931640625,
+        "max": 0.04931640625,
+        "mean": 0.04931640625,
+        "median": 0.04931640625,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.05126953125,
+        "max": 3.0625,
+        "mean": 0.20091091096401215,
+        "median": 0.181640625
+      },
+      "gap": 0.001953125,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 1
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 17,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.05029296875,
+        "max": 1.8671875,
+        "mean": 0.20509549975395203,
+        "median": 0.185546875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 18,
+      "per_inference_inactive_count": 1,
+      "per_inference_active_count": 29567,
+      "inactive_max_gate_stats": {
+        "min": 0.047119140625,
+        "max": 0.047119140625,
+        "mean": 0.047119140625,
+        "median": 0.047119140625,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.053466796875,
+        "max": 2.234375,
+        "mean": 0.2158101201057434,
+        "median": 0.1962890625
+      },
+      "gap": 0.00634765625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 1
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 19,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.051025390625,
+        "max": 3.34375,
+        "mean": 0.23555593192577362,
+        "median": 0.2099609375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 20,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.05810546875,
+        "max": 2.609375,
+        "mean": 0.2506726384162903,
+        "median": 0.220703125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 21,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.06689453125,
+        "max": 2.671875,
+        "mean": 0.2581818401813507,
+        "median": 0.2265625
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 22,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.0830078125,
+        "max": 8.875,
+        "mean": 0.28621748089790344,
+        "median": 0.2431640625
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 23,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.07470703125,
+        "max": 4.875,
+        "mean": 0.29984262585639954,
+        "median": 0.251953125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 24,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.08056640625,
+        "max": 3.328125,
+        "mean": 0.31447842717170715,
+        "median": 0.263671875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 25,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.08935546875,
+        "max": 4.4375,
+        "mean": 0.32273009419441223,
+        "median": 0.267578125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 26,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.0927734375,
+        "max": 4.5,
+        "mean": 0.3375411331653595,
+        "median": 0.2734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 27,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.09814453125,
+        "max": 4.75,
+        "mean": 0.3497275412082672,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 28,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.09814453125,
+        "max": 2.859375,
+        "mean": 0.3637702167034149,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 29,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12451171875,
+        "max": 4.09375,
+        "mean": 0.36728808283805847,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 30,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.11181640625,
+        "max": 2.90625,
+        "mean": 0.3571131229400635,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 31,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.103515625,
+        "max": 3.296875,
+        "mean": 0.36427947878837585,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 32,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.095703125,
+        "max": 3.75,
+        "mean": 0.36895835399627686,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 33,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.11181640625,
+        "max": 4.09375,
+        "mean": 0.35957568883895874,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 34,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.11962890625,
+        "max": 4.40625,
+        "mean": 0.3571859896183014,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 35,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12255859375,
+        "max": 4.78125,
+        "mean": 0.3632918894290924,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 36,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1123046875,
+        "max": 4.46875,
+        "mean": 0.3730500042438507,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 37,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.11279296875,
+        "max": 5.375,
+        "mean": 0.37646928429603577,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 38,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1171875,
+        "max": 4.8125,
+        "mean": 0.36519402265548706,
+        "median": 0.27734375
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 39,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.11865234375,
+        "max": 4.5,
+        "mean": 0.37519437074661255,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 40,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.125,
+        "max": 6.28125,
+        "mean": 0.38428038358688354,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 41,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12353515625,
+        "max": 4.15625,
+        "mean": 0.3912641704082489,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 42,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12890625,
+        "max": 3.703125,
+        "mean": 0.4007047712802887,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 43,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12890625,
+        "max": 4.78125,
+        "mean": 0.41360118985176086,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 44,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.138671875,
+        "max": 5.4375,
+        "mean": 0.4249117374420166,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 45,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1357421875,
+        "max": 20.0,
+        "mean": 0.43537771701812744,
+        "median": 0.283203125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 46,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1416015625,
+        "max": 4.78125,
+        "mean": 0.4404350519180298,
+        "median": 0.283203125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 47,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.140625,
+        "max": 4.71875,
+        "mean": 0.4348966181278229,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 48,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12255859375,
+        "max": 7.84375,
+        "mean": 0.4415578842163086,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 49,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.140625,
+        "max": 12.125,
+        "mean": 0.4560887813568115,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 50,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1513671875,
+        "max": 7.3125,
+        "mean": 0.461738258600235,
+        "median": 0.283203125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 51,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1513671875,
+        "max": 4.15625,
+        "mean": 0.4462512135505676,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 52,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12890625,
+        "max": 9.9375,
+        "mean": 0.44763630628585815,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 53,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1591796875,
+        "max": 5.59375,
+        "mean": 0.4598294496536255,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 54,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1396484375,
+        "max": 7.28125,
+        "mean": 0.47994667291641235,
+        "median": 0.2890625
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 55,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12109375,
+        "max": 7.21875,
+        "mean": 0.47569897770881653,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 56,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1640625,
+        "max": 7.71875,
+        "mean": 0.48751187324523926,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 57,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1611328125,
+        "max": 6.5,
+        "mean": 0.5268499255180359,
+        "median": 0.314453125
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 58,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.16015625,
+        "max": 8.0,
+        "mean": 0.5337522029876709,
+        "median": 0.2890625
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 59,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1787109375,
+        "max": 8.4375,
+        "mean": 0.5323788523674011,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 60,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.13671875,
+        "max": 9.0,
+        "mean": 0.5083072781562805,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 61,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.173828125,
+        "max": 11.375,
+        "mean": 0.5211965441703796,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 62,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1591796875,
+        "max": 7.34375,
+        "mean": 0.5531920194625854,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 63,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1787109375,
+        "max": 9.3125,
+        "mean": 0.5579978227615356,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 64,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1259765625,
+        "max": 10.5625,
+        "mean": 0.559718132019043,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 65,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.140625,
+        "max": 11.625,
+        "mean": 0.5915117859840393,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 66,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1455078125,
+        "max": 13.875,
+        "mean": 0.5799094438552856,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 67,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1240234375,
+        "max": 8.1875,
+        "mean": 0.6124419569969177,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 68,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1337890625,
+        "max": 10.4375,
+        "mean": 0.6382956504821777,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 69,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.12890625,
+        "max": 9.625,
+        "mean": 0.6541904807090759,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 70,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1005859375,
+        "max": 14.6875,
+        "mean": 0.6299192905426025,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 71,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.0908203125,
+        "max": 8.625,
+        "mean": 0.6182494163513184,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 72,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.1083984375,
+        "max": 12.25,
+        "mean": 0.5832234025001526,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 73,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.0908203125,
+        "max": 12.0625,
+        "mean": 0.5778855085372925,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 74,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.054443359375,
+        "max": 13.0625,
+        "mean": 0.6196269392967224,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 75,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.0703125,
+        "max": 11.3125,
+        "mean": 0.6514524817466736,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 76,
+      "per_inference_inactive_count": 2,
+      "per_inference_active_count": 29566,
+      "inactive_max_gate_stats": {
+        "min": 0.03857421875,
+        "max": 0.03857421875,
+        "mean": 0.03857421875,
+        "median": 0.03857421875,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.0517578125,
+        "max": 29.5,
+        "mean": 0.7209460139274597,
+        "median": 0.279296875
+      },
+      "gap": 0.01318359375,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 2
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 77,
+      "per_inference_inactive_count": 0,
+      "per_inference_active_count": 29568,
+      "inactive_max_gate_stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "active_max_gate_stats": {
+        "min": 0.07177734375,
+        "max": 41.75,
+        "mean": 0.7998320460319519,
+        "median": 0.279296875
+      },
+      "gap": 0.0,
+      "inactive_histogram": {
+        "0.000_to_0.001": 0,
+        "0.001_to_0.005": 0,
+        "0.005_to_0.010": 0,
+        "0.010_to_0.020": 0,
+        "0.020_to_0.050": 0
+      },
+      "encoding_capacity": {
+        "below_0.001": 0,
+        "below_0.005": 0,
+        "below_0.010": 0,
+        "below_0.020": 0
+      }
+    },
+    {
+      "layer": 78,
+      "per_inference_inactive_count": 142,
+      "per_inference_active_count": 29426,
+      "inactive_max_gate_stats": {
+        "min": 0.00067138671875,
+        "max": 0.049560546875,
+        "mean": 0.02893711067736149,
+        "median": 0.0306396484375,
+        "std": 0.014337033964693546
+      },
+      "active_max_gate_stats": {
+        "min": 0.050537109375,
+        "max": 20.625,
+        "mean": 1.0040093660354614,
+        "median": 0.279296875
+      },
+      "gap": 0.0009765625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 2,
+        "0.001_to_0.005": 9,
+        "0.005_to_0.010": 10,
+        "0.010_to_0.020": 17,
+        "0.020_to_0.050": 104
+      },
+      "encoding_capacity": {
+        "below_0.001": 2,
+        "below_0.005": 11,
+        "below_0.010": 21,
+        "below_0.020": 38
+      }
+    },
+    {
+      "layer": 79,
+      "per_inference_inactive_count": 229,
+      "per_inference_active_count": 29339,
+      "inactive_max_gate_stats": {
+        "min": 0.00034332275390625,
+        "max": 0.049560546875,
+        "mean": 0.0337022989988327,
+        "median": 0.036865234375,
+        "std": 0.012631960213184357
+      },
+      "active_max_gate_stats": {
+        "min": 0.050537109375,
+        "max": 46.75,
+        "mean": 1.130037784576416,
+        "median": 0.27734375
+      },
+      "gap": 0.0009765625,
+      "inactive_histogram": {
+        "0.000_to_0.001": 1,
+        "0.001_to_0.005": 5,
+        "0.005_to_0.010": 8,
+        "0.010_to_0.020": 23,
+        "0.020_to_0.050": 192
+      },
+      "encoding_capacity": {
+        "below_0.001": 1,
+        "below_0.005": 6,
+        "below_0.010": 14,
+        "below_0.020": 37
+      }
+    }
+  ]
+}
