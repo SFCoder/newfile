@@ -637,13 +637,13 @@ def main() -> None:
         help=f"New tokens to generate per prompt (default: {NUM_TOKENS})"
     )
     parser.add_argument(
-        "--output-dir", default=str(OUTPUT_DIR),
-        help=f"Output directory for JSON results (default: {OUTPUT_DIR})"
+        "--output-dir", default="analysis_results/gate_value_distribution",
+        help="Output directory for JSON results"
     )
     args = parser.parse_args()
 
     # Apply overrides.
-    global OUTPUT_DIR, VECTORS_DIR
+    global OUTPUT_DIR, VECTORS_DIR  # noqa
     OUTPUT_DIR  = Path(args.output_dir)
     VECTORS_DIR = OUTPUT_DIR / "vectors"
 
