@@ -1,0 +1,32 @@
+{
+  "experiment": "gate_value_distribution",
+  "model": "/workspace/.cache/huggingface/hub/models--Qwen--Qwen2.5-72B-Instruct/snapshots/495f39366efef23836d0cfae4fbe635880d2be31",
+  "quantization": "nf4",
+  "activity_threshold": 0.05,
+  "num_prompts": 26,
+  "num_layers": 80,
+  "intermediate_size": 29568,
+  "capture_positions": [
+    0,
+    5,
+    10
+  ],
+  "summary": {
+    "min_enc_0001": 2,
+    "min_enc_0005": 18,
+    "min_enc_001": 47,
+    "min_enc_002": 96,
+    "kb_0001": 0.01953125,
+    "kb_0005": 0.17578125,
+    "kb_001": 0.458984375,
+    "kb_002": 0.9375,
+    "max_inactive": 0.04998779296875,
+    "min_active": 0.050018310546875,
+    "gap": 3.0517578125e-05,
+    "cv": 1.5482850947009117,
+    "worst_prompt_id": "adversarial_edge_02",
+    "worst_category": "adversarial_edge",
+    "worst_cap": 47,
+    "mean_overlap": 19.847757940901275
+  }
+}

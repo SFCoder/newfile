@@ -2,11 +2,7 @@
 __pycache__/
 *.pyc
 .env
-# SQLite results database — rebuilt from JSON files via migrate.py
-results.db
-results.db-shm
-results.db-wal
-hardware_results_mac.json
-hardware_results_cuda.json
-# Generated dashboard — rebuilt from results.db via tools/export_dashboard.py
-analysis_results/dashboard.html
+
+# Raw gate value vectors — too large for GitHub (>725 MB total).
+# Only JSON summaries are committed; vectors are for local analysis only.
+analysis_results/gate_value_distribution/vectors/
