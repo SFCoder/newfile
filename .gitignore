@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 .env
+
+# Raw gate value vectors — too large for GitHub (>725 MB total).
+# Only JSON summaries are committed; vectors are for local analysis only.
+analysis_results/gate_value_distribution/vectors/
