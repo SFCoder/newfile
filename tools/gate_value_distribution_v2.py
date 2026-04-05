@@ -693,8 +693,8 @@ def main() -> None:
         help=f"Tokens to generate per prompt (default: {NUM_TOKENS})"
     )
     parser.add_argument(
-        "--output-dir", default=str(OUTPUT_DIR),
-        help=f"Output directory (default: {OUTPUT_DIR})"
+        "--output-dir", default="analysis_results/gate_value_distribution_v2",
+        help="Output directory"
     )
     args = parser.parse_args()
 

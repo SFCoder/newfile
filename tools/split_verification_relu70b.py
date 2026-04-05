@@ -116,7 +116,7 @@ def load_model(model_id: str):
         except Exception as exc:
             print(f"  Registry not used ({exc})")
 
-    tokenizer = AutoTokenizer.from_pretrained(resolved, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(resolved, trust_remote_code=True, use_fast=False)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
