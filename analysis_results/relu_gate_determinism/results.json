@@ -1,0 +1,18 @@
+[
+  {
+    "experiment_name": "relu_gate_determinism",
+    "attack_type": "honest",
+    "mode": "capture",
+    "output_file": "/workspace/relu_gate_cuda_A.json",
+    "model_id": "SparseLLM/ReluLLaMA-7B",
+    "num_prompts": 5,
+    "num_layers": 32,
+    "intermediate_size": 11008,
+    "hardware": {
+      "device_type": "cuda",
+      "device_name": "NVIDIA GeForce RTX 4090",
+      "hostname": "b2e3e7dae2ee"
+    },
+    "timestamp": "2026-04-12T22:11:34.955189+00:00"
+  }
+]
